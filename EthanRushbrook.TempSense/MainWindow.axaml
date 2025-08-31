@@ -63,7 +63,7 @@
             
         </TabItem>
         
-        <TabItem Header="No IP detected" IsEnabled="False" Margin="10 0 0 0" Name="LocalIpHeader" />
+        <TabItem Header="No IP detected" IsEnabled="False" Name="LocalIpHeader" />
     </TabControl>
     
 </sukiUi:SukiWindow>
