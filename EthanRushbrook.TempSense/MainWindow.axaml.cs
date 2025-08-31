@@ -50,6 +50,6 @@ public partial class MainWindow : SukiWindow
     {
         var localIp = LocalNetworkInterop.GetLocalIPv4();
         
-        LocalIpHeader.Header = localIp is not null ? $"Running at {localIp}" : "No IPv4 detected";
+        LocalIpHeader.Header = localIp ?? "No IPv4 detected";
     }
 }
