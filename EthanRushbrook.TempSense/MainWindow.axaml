@@ -62,6 +62,8 @@
         <TabItem Header="Pi 5 B">
             
         </TabItem>
+        
+        <TabItem Header="No IP detected" IsEnabled="False" Margin="10 0 0 0" Name="LocalIpHeader" />
     </TabControl>
     
 </sukiUi:SukiWindow>

@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using EthanRushbrook.TempSense.SystemInterop;
 using SukiUI.Controls;
 
 namespace EthanRushbrook.TempSense;
@@ -17,7 +18,13 @@ public partial class MainWindow : SukiWindow
     protected override void OnLoaded(RoutedEventArgs e)
     {
         base.OnLoaded(e);
-        
+
+        InitializeWindowState();
+        DetectLocalIp();
+    }
+
+    private void InitializeWindowState()
+    {
         if (!File.Exists("/proc/cpuinfo"))
             return;
 
@@ -37,5 +44,12 @@ public partial class MainWindow : SukiWindow
         }
         else
             Console.WriteLine("Pi 5 not detected, starting in dev mode");
+    }
+
+    private void DetectLocalIp()
+    {
+        var localIp = LocalNetworkInterop.GetLocalIPv4();
+        
+        LocalIpHeader.Header = localIp is not null ? $"Running at {localIp}" : "No IPv4 detected";
     }
 }

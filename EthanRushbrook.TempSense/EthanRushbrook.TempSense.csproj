@@ -36,4 +36,8 @@
         <SubType>Code</SubType>
       </Compile>
     </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\EthanRushbrook.TempSense.SystemInterop\EthanRushbrook.TempSense.SystemInterop.csproj" />
+    </ItemGroup>
 </Project>
