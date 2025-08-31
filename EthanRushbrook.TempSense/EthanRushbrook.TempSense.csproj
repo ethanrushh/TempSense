@@ -31,5 +31,9 @@
         <DependentUpon>CircleWidget.axaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
+      <Compile Update="Components\Widgets\ReadoutWidget.axaml.cs">
+        <DependentUpon>ReadoutWidget.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
     </ItemGroup>
 </Project>

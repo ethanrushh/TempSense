@@ -15,7 +15,7 @@
         Height="800">
     
     <TabControl TabStripPlacement="Bottom">
-        <TabItem Header="Page 1">
+        <TabItem Header="Main PC">
             <pageLayouts:MinisPageLayout>
                 <pageLayouts:MinisPageLayout.Widgets>
                     <widgets:WidgetTemplate>
@@ -32,7 +32,7 @@
 
                     <widgets:WidgetTemplate>
                         <widgets:WidgetTemplate.Widget>
-                            <widgets:FluidWidget Value="60" Caption="CPU Temp (°C)" />
+                            <widgets:ReadoutWidget Value="241.4GB" Caption="Free Space" />
                         </widgets:WidgetTemplate.Widget>
                     </widgets:WidgetTemplate>
 
@@ -56,7 +56,10 @@
                 </pageLayouts:MinisPageLayout.Widgets>
             </pageLayouts:MinisPageLayout>
         </TabItem>
-        <TabItem Header="Page 2">
+        <TabItem Header="Sun X5-2">
+            
+        </TabItem>
+        <TabItem Header="Pi 5 B">
             
         </TabItem>
     </TabControl>

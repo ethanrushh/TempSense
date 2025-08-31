@@ -1,0 +1,18 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:widgets="clr-namespace:EthanRushbrook.TempSense.Components.Widgets"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="EthanRushbrook.TempSense.Components.Widgets.ReadoutWidget"
+             x:DataType="widgets:ReadoutWidget"
+             x:Name="Root">
+    <Grid RowDefinitions="*, Auto" Margin="14">
+        <Viewbox>
+            <TextBlock HorizontalAlignment="Center" Text="{Binding Value, ElementName=Root}" />
+        </Viewbox>
+        <Viewbox Grid.Row="1">
+            <TextBlock HorizontalAlignment="Center" Text="{Binding Caption, ElementName=Root}" Margin="24 0" />
+        </Viewbox>
+    </Grid>
+</UserControl>
