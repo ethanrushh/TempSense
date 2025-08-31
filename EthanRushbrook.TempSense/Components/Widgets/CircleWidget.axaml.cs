@@ -3,25 +3,25 @@ using Avalonia.Controls;
 
 namespace EthanRushbrook.TempSense.Components.Widgets;
 
-public partial class FluidWidget : UserControl
+public partial class CircleWidget : UserControl
 {
-    public static readonly StyledProperty<double?> ValueProperty =
-        AvaloniaProperty.Register<FluidWidget, double?>(nameof(Value));
-    public double? Value
+    public static readonly StyledProperty<string?> ValueProperty =
+        AvaloniaProperty.Register<CircleWidget, string?>(nameof(Value));
+    public string? Value
     {
         get => GetValue(ValueProperty);
         set => SetValue(ValueProperty, value);
     }
     
     public static readonly StyledProperty<string?> CaptionProperty =
-        AvaloniaProperty.Register<FluidWidget, string?>(nameof(Caption));
+        AvaloniaProperty.Register<CircleWidget, string?>(nameof(Caption));
     public string? Caption
     {
         get => GetValue(CaptionProperty);
         set => SetValue(CaptionProperty, value);
     }
     
-    public FluidWidget()
+    public CircleWidget()
     {
         InitializeComponent();
     }

@@ -25,4 +25,11 @@
 
         <PackageReference Include="System.Reactive" Version="6.0.2" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Components\Widgets\CircleWidget.axaml.cs">
+        <DependentUpon>CircleWidget.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+    </ItemGroup>
 </Project>

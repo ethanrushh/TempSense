@@ -26,7 +26,7 @@
                     
                     <widgets:WidgetTemplate>
                         <widgets:WidgetTemplate.Widget>
-                            <widgets:FluidWidget Value="60" Caption="CPU Temp (°C)" />
+                            <widgets:CircleWidget Value="40" Caption="GPU Temp (°C)" />
                         </widgets:WidgetTemplate.Widget>
                     </widgets:WidgetTemplate>
 

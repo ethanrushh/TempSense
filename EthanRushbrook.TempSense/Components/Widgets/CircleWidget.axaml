@@ -4,13 +4,19 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:suki="https://github.com/kikipoulet/SukiUI"
              xmlns:widgets="clr-namespace:EthanRushbrook.TempSense.Components.Widgets"
-             x:DataType="widgets:FluidWidget"
+             x:DataType="widgets:CircleWidget"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="EthanRushbrook.TempSense.Components.Widgets.FluidWidget"
+             x:Class="EthanRushbrook.TempSense.Components.Widgets.CircleWidget"
              x:Name="Root">
     <Grid RowDefinitions="*, Auto">
         <Viewbox>
-            <suki:WaveProgress Name="Progress" Value="{Binding Value, ElementName=Root}" />
+            <suki:CircleProgressBar Name="Progress" Margin="14" StrokeWidth="14">
+                <TextBlock  
+                    Margin="0,2,0,0"
+                    Classes="h3"
+                    Text="{Binding Value, ElementName=Root}"
+                />
+            </suki:CircleProgressBar>
         </Viewbox>
         <Panel Grid.Row="1" Margin="14 0">
             <Viewbox MaxWidth="200">
