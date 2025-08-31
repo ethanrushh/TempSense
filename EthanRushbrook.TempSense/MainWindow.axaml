@@ -12,7 +12,8 @@
         IsMenuVisible="False"
         IsTitleBarVisible="False"
         Width="480"
-        Height="800">
+        Height="800"
+        CornerRadius="0">
     
     <TabControl TabStripPlacement="Bottom">
         <TabItem Header="Main PC">
