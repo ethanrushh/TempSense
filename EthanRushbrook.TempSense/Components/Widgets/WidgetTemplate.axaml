@@ -1,0 +1,9 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
+             x:Class="EthanRushbrook.TempSense.Components.Widgets.WidgetTemplate">
+    <suki:GlassCard Classes="Standard" IsInteractive="True" IsAnimated="False" Name="Card">
+        <!-- <ContentPresenter Content="{Binding Content, RelativeSource={RelativeSource AncestorType=UserControl}}"/> -->
+        <Panel HorizontalAlignment="Center" VerticalAlignment="Center" Name="CentrePanel"></Panel>
+    </suki:GlassCard>
+</UserControl>

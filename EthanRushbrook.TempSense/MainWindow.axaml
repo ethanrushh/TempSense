@@ -1,0 +1,62 @@
+<sukiUi:SukiWindow xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="EthanRushbrook.TempSense.MainWindow"
+        xmlns:sukiUi="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+        xmlns:pageLayouts="clr-namespace:EthanRushbrook.TempSense.Components.PageLayouts"
+        xmlns:widgets="clr-namespace:EthanRushbrook.TempSense.Components.Widgets"
+        Title="EthanRushbrook.TempSense"
+        SystemDecorations="None"
+        IsMenuVisible="False"
+        IsTitleBarVisible="False">
+    
+    <TabControl TabStripPlacement="Bottom">
+        <TabItem Header="Page 1">
+            <pageLayouts:MinisPageLayout>
+                <pageLayouts:MinisPageLayout.Widgets>
+                    <widgets:WidgetTemplate>
+                        <widgets:WidgetTemplate.Widget>
+                            <widgets:FluidWidget Value="60" Caption="CPU Temp (°C)" />
+                        </widgets:WidgetTemplate.Widget>
+                    </widgets:WidgetTemplate>
+                    
+                    <widgets:WidgetTemplate>
+                        <widgets:WidgetTemplate.Widget>
+                            <widgets:FluidWidget Value="60" Caption="CPU Temp (°C)" />
+                        </widgets:WidgetTemplate.Widget>
+                    </widgets:WidgetTemplate>
+
+                    <widgets:WidgetTemplate>
+                        <widgets:WidgetTemplate.Widget>
+                            <widgets:FluidWidget Value="60" Caption="CPU Temp (°C)" />
+                        </widgets:WidgetTemplate.Widget>
+                    </widgets:WidgetTemplate>
+
+                    <widgets:WidgetTemplate>
+                        <widgets:WidgetTemplate.Widget>
+                            <widgets:FluidWidget Value="60" Caption="CPU Temp (°C)" />
+                        </widgets:WidgetTemplate.Widget>
+                    </widgets:WidgetTemplate>
+
+                    <widgets:WidgetTemplate>
+                        <widgets:WidgetTemplate.Widget>
+                            <widgets:FluidWidget Value="60" Caption="CPU Temp (°C)" />
+                        </widgets:WidgetTemplate.Widget>
+                    </widgets:WidgetTemplate>
+
+                    <widgets:WidgetTemplate>
+                        <widgets:WidgetTemplate.Widget>
+                            <widgets:FluidWidget Value="60" Caption="CPU Temp (°C)" />
+                        </widgets:WidgetTemplate.Widget>
+                    </widgets:WidgetTemplate>
+                </pageLayouts:MinisPageLayout.Widgets>
+            </pageLayouts:MinisPageLayout>
+        </TabItem>
+        <TabItem Header="Page 2">
+            
+        </TabItem>
+    </TabControl>
+    
+</sukiUi:SukiWindow>
