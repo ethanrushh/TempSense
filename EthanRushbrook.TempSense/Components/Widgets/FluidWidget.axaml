@@ -8,11 +8,13 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="EthanRushbrook.TempSense.Components.Widgets.FluidWidget">
     <StackPanel>
-        <suki:WaveProgress Name="Progress" Value="{Binding Value}">
-            <suki:WaveProgress.RenderTransform>
-                <ScaleTransform ScaleX="0.6" ScaleY="0.6"></ScaleTransform>
-            </suki:WaveProgress.RenderTransform>
-        </suki:WaveProgress>
-        <TextBlock HorizontalAlignment="Center" Text="{Binding Caption}" FontSize="18" />
+        <Viewbox HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <suki:WaveProgress Name="Progress" Value="{Binding Value}" />
+        </Viewbox>
+        <Panel Margin="14 0">
+            <Viewbox HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <TextBlock HorizontalAlignment="Center" Text="{Binding Caption}" />
+            </Viewbox>
+        </Panel>
     </StackPanel>
 </UserControl>
