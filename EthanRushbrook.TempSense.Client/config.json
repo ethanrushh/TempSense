@@ -1,5 +1,5 @@
 {
-  "server_endpoint": "http://localhost:5058/hub",
+  "server_endpoint": "http://10.0.0.62:5058/hub",
   "page_id": "Dev PC",
   
   "widget_layout": "mini_grid",
@@ -12,8 +12,27 @@
       "sensor_name": "Core 0",
       "field_name": "temp2_input",
       
-      "display_name": "CPU Core Temp",
+      "display_name": "CPU Core 0 Temp",
       "unit": "°C"
+    },
+    {
+      "type": "Sensor",
+      "widget_display_type": "Round",
+      
+      "device_name": "coretemp-isa-0000",
+      "sensor_name": "Package id 0",
+      "field_name": "temp1_input",
+      
+      "display_name": "CPU Package (°C)",
+      "unit": "°C"
+    },
+    {
+      "type": "Disk",
+      "widget_display_type": "Readout",
+      
+      "device_name": "/",
+      
+      "display_name": "Free Space (GiB)"
     },
     {
       "type": "Memory",

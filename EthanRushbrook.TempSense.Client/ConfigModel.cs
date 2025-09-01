@@ -62,7 +62,7 @@ public class ConfigWidgetDefinition
 [JsonConverter(typeof(JsonStringEnumConverter))]
 public enum WidgetType
 {
-    Sensor, Memory, Network
+    Sensor, Memory, Network, Disk
 }
 [JsonConverter(typeof(JsonStringEnumConverter))]
 public enum NetworkDirection
@@ -73,6 +73,11 @@ public enum NetworkDirection
 public enum MemorySensorTarget
 {
     Free, Total, UsedPercentage
+}
+[JsonConverter(typeof(JsonStringEnumConverter))]
+public enum DiskSensorTarget
+{
+    Free, Total, Used
 }
 
 public static class ConfigModelExtensions

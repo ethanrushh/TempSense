@@ -111,6 +111,12 @@ string GetWidgetValue(ConfigWidgetDefinition widget)
             
             return sensors.GetSensorValueOrDefault(widget.DeviceName, widget.SensorName, widget.FieldName)?.ToString() ?? "0";
         
+        case WidgetType.Disk:
+            if (widget.DeviceName is null)
+                throw new Exception("Invalid sensor details in config");
+            
+            return $"{sensors.GetDiskStats(widget.DeviceName)?.Available / 1024.0 / 1024.0 / 1024.0:F2} GiB";
+        
         default:
             return "";
     }

@@ -140,4 +140,27 @@ public class LinuxSensors : IDisposable
 
         throw new Exception("Network adapter not found or readable");
     }
+
+    public DiskStatistics? GetDiskStats(string directory)
+    {
+        var root = Path.GetPathRoot(directory);
+        
+        if (root is null)
+            throw new ArgumentException("Unable to find root directory",  nameof(directory));
+        
+        var drive = new DriveInfo(root);
+
+        if (!drive.IsReady)
+            return null;
+        
+        var freePercent = (double)drive.AvailableFreeSpace / drive.TotalSize * 100;
+
+        return new DiskStatistics
+        {
+            Available = drive.AvailableFreeSpace,
+            Total = drive.TotalSize,
+            Used = drive.TotalSize - drive.AvailableFreeSpace,
+            UsedPercentage = freePercent
+        };
+    }
 }
