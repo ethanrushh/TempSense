@@ -21,7 +21,7 @@
                 <pageLayouts:MinisPageLayout.Widgets>
                     <widgets:WidgetTemplate>
                         <widgets:WidgetTemplate.Widget>
-                            <widgets:CircleWidget Text="60°C" Value="60" Caption="CPU Temp (°C)" />
+                            <widgets:CircleWidget Text="60°C" Value="60" Caption="CPU Package" />
                         </widgets:WidgetTemplate.Widget>
                     </widgets:WidgetTemplate>
                     

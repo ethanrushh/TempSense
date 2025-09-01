@@ -1,0 +1,33 @@
+{
+  "server_endpoint": "127.0.0.1",
+  
+  "widget_layout": "mini_grid",
+  "widgets": [
+    {
+      "type": "Sensor",
+      
+      "device_name": "coretemp-isa-0000",
+      "sensor_name": "Core 0",
+      "field_name": "temp2_input",
+      
+      "display_name": "CPU Core Temp",
+      "unit": "°C"
+    },
+    {
+      "type": "Network",
+
+      "device_name": "enp4s0",
+      "direction": "Up",
+
+      "display_name": "enp4s0 Upload"
+    },
+    {
+      "type": "Network",
+
+      "device_name": "enp4s0",
+      "direction": "Down",
+
+      "display_name": "enp4s0 Download"
+    }
+  ]
+}
