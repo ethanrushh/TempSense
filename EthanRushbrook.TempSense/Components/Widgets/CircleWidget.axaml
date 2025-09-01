@@ -10,11 +10,11 @@
              x:Name="Root">
     <Grid RowDefinitions="*, Auto">
         <Viewbox>
-            <suki:CircleProgressBar Name="Progress" Margin="14" StrokeWidth="14">
+            <suki:CircleProgressBar Name="Progress" Margin="14" StrokeWidth="14" Value="{Binding Value, ElementName=Root}">
                 <TextBlock  
                     Margin="0,2,0,0"
                     Classes="h3"
-                    Text="{Binding Value, ElementName=Root}"
+                    Text="{Binding Text, ElementName=Root}"
                 />
             </suki:CircleProgressBar>
         </Viewbox>

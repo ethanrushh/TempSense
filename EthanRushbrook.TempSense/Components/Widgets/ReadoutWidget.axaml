@@ -7,11 +7,14 @@
              x:Class="EthanRushbrook.TempSense.Components.Widgets.ReadoutWidget"
              x:DataType="widgets:ReadoutWidget"
              x:Name="Root">
-    <Grid RowDefinitions="*, Auto" Margin="14">
-        <Viewbox>
-            <TextBlock HorizontalAlignment="Center" Text="{Binding Value, ElementName=Root}" />
+    <Grid RowDefinitions="Auto, *, Auto" Margin="14">
+        <Viewbox MaxHeight="120" Name="TitleViewbox">
+            <TextBlock HorizontalAlignment="Center" Text="{Binding Title, ElementName=Root}" Margin="24 0" />
         </Viewbox>
         <Viewbox Grid.Row="1">
+            <TextBlock HorizontalAlignment="Center" Text="{Binding Value, ElementName=Root}" />
+        </Viewbox>
+        <Viewbox Grid.Row="2" MaxHeight="80">
             <TextBlock HorizontalAlignment="Center" Text="{Binding Caption, ElementName=Root}" Margin="24 0" />
         </Viewbox>
     </Grid>
