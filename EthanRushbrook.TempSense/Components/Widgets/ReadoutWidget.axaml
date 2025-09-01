@@ -8,10 +8,10 @@
              x:DataType="widgets:ReadoutWidget"
              x:Name="Root">
     <Grid RowDefinitions="Auto, *, Auto" Margin="14">
-        <Viewbox MaxHeight="120" Name="TitleViewbox">
+        <Viewbox Name="TitleViewbox">
             <TextBlock HorizontalAlignment="Center" Text="{Binding Header, ElementName=Root}" Margin="24 0" />
         </Viewbox>
-        <Viewbox Grid.Row="1">
+        <Viewbox Grid.Row="1" Name="ContentViewbox">
             <TextBlock HorizontalAlignment="Center" Text="{Binding Value, ElementName=Root}" />
         </Viewbox>
         <Viewbox Grid.Row="2" MaxHeight="80">

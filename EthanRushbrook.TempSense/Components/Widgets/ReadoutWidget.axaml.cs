@@ -1,3 +1,4 @@
+using System;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
@@ -18,18 +19,17 @@ public partial class ReadoutWidget : WidgetBase
     public ReadoutWidget()
     {
         InitializeComponent();
+        
+        this.GetObservable(HeaderProperty).Subscribe(value =>
+        {
+            TitleViewbox.IsVisible = !string.IsNullOrEmpty(value);
+        });
     }
 
     protected override void OnLoaded(RoutedEventArgs e)
     {
         base.OnLoaded(e);
         
-        var initialTitleHeight = TitleViewbox.MaxHeight;
-        TitleViewbox.MaxHeight = Header is null ? 0 : initialTitleHeight;
-
-        HeaderProperty.Changed.Subscribe(new AnonymousObserver<AvaloniaPropertyChangedEventArgs<string?>>(value =>
-        {
-            TitleViewbox.MaxHeight = value.NewValue.GetValueOrDefault() is null ? 0 : initialTitleHeight;
-        }));
+        TitleViewbox.IsVisible = !string.IsNullOrEmpty(Header);
     }
 }
