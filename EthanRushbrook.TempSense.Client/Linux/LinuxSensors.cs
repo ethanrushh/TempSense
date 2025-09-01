@@ -59,11 +59,11 @@ public class LinuxSensors : IDisposable
         if (_lastSensorRun is null)
             throw new Exception("Run Tick before reading sensor");
         
-        if (_lastSensorRun.RootElement.TryGetProperty("coretemp-isa-0000", out JsonElement coretemp))
+        if (_lastSensorRun.RootElement.TryGetProperty(deviceName, out JsonElement coretemp))
         {
-            if (coretemp.TryGetProperty("Core 0", out JsonElement package))
+            if (coretemp.TryGetProperty(sensorName, out JsonElement package))
             {
-                if (package.TryGetProperty("temp2_input", out JsonElement temp))
+                if (package.TryGetProperty(fieldName, out JsonElement temp))
                 {
                     return temp.GetDouble();
                 }
