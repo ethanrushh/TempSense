@@ -9,7 +9,7 @@
              x:Name="Root">
     <Grid RowDefinitions="Auto, *, Auto" Margin="14">
         <Viewbox MaxHeight="120" Name="TitleViewbox">
-            <TextBlock HorizontalAlignment="Center" Text="{Binding Title, ElementName=Root}" Margin="24 0" />
+            <TextBlock HorizontalAlignment="Center" Text="{Binding Header, ElementName=Root}" Margin="24 0" />
         </Viewbox>
         <Viewbox Grid.Row="1">
             <TextBlock HorizontalAlignment="Center" Text="{Binding Value, ElementName=Root}" />

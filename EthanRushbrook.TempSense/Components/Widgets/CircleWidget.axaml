@@ -14,7 +14,7 @@
                 <TextBlock  
                     Margin="0,2,0,0"
                     Classes="h3"
-                    Text="{Binding Text, ElementName=Root}"
+                    Text="{Binding Header, ElementName=Root}"
                 />
             </suki:CircleProgressBar>
         </Viewbox>

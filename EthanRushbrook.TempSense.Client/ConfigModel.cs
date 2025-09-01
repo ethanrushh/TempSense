@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using EthanRushbrook.TempSense.Contracts;
 
 namespace EthanRushbrook.TempSense.Client;
 
@@ -10,15 +11,19 @@ public class ConfigModel
     public string? ServerEndpoint { get; set; }
     
     [JsonRequired]
+    [JsonPropertyName("page_id")]
+    public string? PageId { get; set; }
+
+    [JsonRequired]
     [JsonPropertyName("widget_layout")]
     public string? WidgetLayout { get; set; }
     
     [JsonRequired]
     [JsonPropertyName("widgets")]
-    public List<WidgetDefinition>? Widgets { get; set; }
+    public List<ConfigWidgetDefinition>? Widgets { get; set; }
 }
 
-public class WidgetDefinition
+public class ConfigWidgetDefinition
 {
     [JsonRequired]
     [JsonPropertyName("display_name")]
@@ -27,6 +32,13 @@ public class WidgetDefinition
     [JsonRequired]
     [JsonPropertyName("type")]
     public WidgetType? Type { get; set; }
+    
+    [JsonRequired]
+    [JsonPropertyName("widget_display_type")]
+    public WidgetDisplayType? DisplayType { get; set; }
+    
+    [JsonPropertyName("header")]
+    public string? Header { get; set; }
     
     [JsonPropertyName("device_name")]
     public string? DeviceName { get; set; }
@@ -42,6 +54,9 @@ public class WidgetDefinition
     
     [JsonPropertyName("direction")]
     public NetworkDirection? Direction { get; set; }
+    
+    [JsonPropertyName("memory_sensor_target")]
+    public MemorySensorTarget? MemorySensorTarget { get; set; }
 }
 
 [JsonConverter(typeof(JsonStringEnumConverter))]
@@ -55,9 +70,9 @@ public enum NetworkDirection
     Up, Down
 }
 [JsonConverter(typeof(JsonStringEnumConverter))]
-public enum WidgetDisplayType
+public enum MemorySensorTarget
 {
-    Round, Fluid, Readout
+    Free, Total, UsedPercentage
 }
 
 public static class ConfigModelExtensions

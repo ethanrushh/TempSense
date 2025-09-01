@@ -38,6 +38,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\EthanRushbrook.TempSense.Contracts\EthanRushbrook.TempSense.Contracts.csproj" />
       <ProjectReference Include="..\EthanRushbrook.TempSense.SystemInterop\EthanRushbrook.TempSense.SystemInterop.csproj" />
     </ItemGroup>
 </Project>

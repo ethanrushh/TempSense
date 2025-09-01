@@ -1,3 +1,4 @@
+using System;
 using Avalonia;
 using Avalonia.Collections;
 using Avalonia.Controls;
@@ -8,10 +9,10 @@ namespace EthanRushbrook.TempSense.Components.PageLayouts;
 
 public partial class MinisPageLayout : UserControl
 {
-    public static readonly StyledProperty<AvaloniaList<Control>> WidgetsProperty =
-        AvaloniaProperty.Register<MinisPageLayout, AvaloniaList<Control>>(nameof(Widgets));
+    public static readonly StyledProperty<AvaloniaList<(Guid Id, Control Control)>> WidgetsProperty =
+        AvaloniaProperty.Register<MinisPageLayout, AvaloniaList<(Guid, Control)>>(nameof(Widgets));
 
-    public AvaloniaList<Control> Widgets
+    public AvaloniaList<(Guid Id, Control Control)> Widgets
     {
         get => GetValue(WidgetsProperty);
         set => SetValue(WidgetsProperty, value);
@@ -22,23 +23,24 @@ public partial class MinisPageLayout : UserControl
         InitializeComponent();
 
         // Ensure list is never null
-        Widgets = new AvaloniaList<Control>();
+        Widgets = [];
         Widgets.CollectionChanged += OnWidgetsChanged;
     }
 
     private void OnWidgetsChanged(object? sender, NotifyCollectionChangedEventArgs e)
     {
-        if (LayoutGrid == null) return;
+        if (LayoutGrid == null) 
+            return;
 
         LayoutGrid.Children.Clear();
 
-        for (int i = 0; i < Widgets.Count; i++)
+        for (var i = 0; i < Widgets.Count; i++)
         {
-            var child = Widgets[i];
+            var child = Widgets[i].Control;
 
             // 2 columns, 3 rows
-            int row = i / 2;    // 0,0,1,1,2,2
-            int col = i % 2;    // 0,1,0,1,0,1
+            var row = i / 2;    // 0,0,1,1,2,2
+            var col = i % 2;    // 0,1,0,1,0,1
 
             Grid.SetRow(child, row);
             Grid.SetColumn(child, col);
@@ -56,12 +58,12 @@ public partial class MinisPageLayout : UserControl
 
         LayoutGrid.Children.Clear();
 
-        for (int i = 0; i < Widgets.Count; i++)
+        for (var i = 0; i < Widgets.Count; i++)
         {
-            var child = Widgets[i];
+            var child = Widgets[i].Control;
 
-            int row = i / 2;
-            int col = i % 2;
+            var row = i / 2;
+            var col = i % 2;
 
             Grid.SetRow(child, row);
             Grid.SetColumn(child, col);

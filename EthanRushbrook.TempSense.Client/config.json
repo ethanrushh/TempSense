@@ -1,10 +1,12 @@
 {
-  "server_endpoint": "127.0.0.1",
+  "server_endpoint": "http://localhost:5058/hub",
+  "page_id": "Dev PC",
   
   "widget_layout": "mini_grid",
   "widgets": [
     {
       "type": "Sensor",
+      "widget_display_type": "Round",
       
       "device_name": "coretemp-isa-0000",
       "sensor_name": "Core 0",
@@ -14,7 +16,17 @@
       "unit": "°C"
     },
     {
+      "type": "Memory",
+      "widget_display_type": "Fluid",
+
+      "memory_sensor_target": "UsedPercentage",
+
+      "display_name": "Memory Usage"
+    },
+    {
       "type": "Network",
+      "widget_display_type": "Readout",
+      "header": "↑",
 
       "device_name": "enp4s0",
       "direction": "Up",
@@ -23,6 +35,8 @@
     },
     {
       "type": "Network",
+      "widget_display_type": "Readout",
+      "header": "↓",
 
       "device_name": "enp4s0",
       "direction": "Down",

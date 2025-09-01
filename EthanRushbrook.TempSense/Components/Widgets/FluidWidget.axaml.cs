@@ -3,16 +3,8 @@ using Avalonia.Controls;
 
 namespace EthanRushbrook.TempSense.Components.Widgets;
 
-public partial class FluidWidget : UserControl
+public partial class FluidWidget : WidgetBase
 {
-    public static readonly StyledProperty<double?> ValueProperty =
-        AvaloniaProperty.Register<FluidWidget, double?>(nameof(Value));
-    public double? Value
-    {
-        get => GetValue(ValueProperty);
-        set => SetValue(ValueProperty, value);
-    }
-    
     public static readonly StyledProperty<string?> CaptionProperty =
         AvaloniaProperty.Register<FluidWidget, string?>(nameof(Caption));
     public string? Caption
