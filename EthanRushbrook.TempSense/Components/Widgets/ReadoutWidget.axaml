@@ -7,7 +7,7 @@
              x:Class="EthanRushbrook.TempSense.Components.Widgets.ReadoutWidget"
              x:DataType="widgets:ReadoutWidget"
              x:Name="Root">
-    <Grid RowDefinitions="*, 3*, *" Margin="14 4">
+    <Grid RowDefinitions="*, 3*, *" Margin="14 0">
         <Viewbox Name="TitleViewbox" IsVisible="False">
             <TextBlock HorizontalAlignment="Center" Text="{Binding Header, ElementName=Root}" Margin="24 0" />
         </Viewbox>
