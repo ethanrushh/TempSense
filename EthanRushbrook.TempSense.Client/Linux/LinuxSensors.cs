@@ -6,14 +6,16 @@ namespace EthanRushbrook.TempSense.Client.Linux;
 
 public class LinuxSensors : IDisposable
 {
+    private readonly string _networkAdapterName;
     private JsonDocument? _lastSensorRun;
     private MemoryStatistics? _lastMemoryStats;
     private NetworkStatistics? _currentNetworkStats;
     private NetworkStatistics _previousNetworkStats;
 
-    public LinuxSensors()
+    public LinuxSensors(string networkAdapterName)
     {
-        var (uploadBytes, downloadBytes) = GetNetworkBytes("enp4s0");
+        _networkAdapterName = networkAdapterName;
+        var (uploadBytes, downloadBytes) = GetNetworkBytes(networkAdapterName);
         
         _previousNetworkStats = new NetworkStatistics
         {
@@ -31,7 +33,7 @@ public class LinuxSensors : IDisposable
         _lastMemoryStats = UpdateMemoryStats();
         _lastSensorRun = JsonDocument.Parse(RunSensors());
         
-        var (uploadBytes, downloadBytes) = GetNetworkBytes("enp4s0");
+        var (uploadBytes, downloadBytes) = GetNetworkBytes(_networkAdapterName);
         var now = DateTime.UtcNow;
 
         _currentNetworkStats = new NetworkStatistics

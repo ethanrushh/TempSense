@@ -35,6 +35,10 @@
         <DependentUpon>ReadoutWidget.axaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
+      <Compile Update="Components\PageLayouts\MinisWithFooterPageLayout.axaml.cs">
+        <DependentUpon>MinisWithTextPageLayout.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>

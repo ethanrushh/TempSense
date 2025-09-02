@@ -13,10 +13,18 @@ public class WidgetDefinition
     public string InitialValue { get; set; }
     
     public string? Header { get; set; }
+    
+    public WidgetLayout Layout { get; set; }
 }
 
 [JsonConverter(typeof(JsonStringEnumConverter))]
 public enum WidgetDisplayType
 {
     Round, Fluid, Readout
+}
+
+[JsonConverter(typeof(JsonStringEnumConverter))]
+public enum WidgetLayout
+{
+    Minis, MinisWithFooter
 }

@@ -4,9 +4,9 @@ using System.Collections.Specialized;
 
 namespace EthanRushbrook.TempSense.Components.PageLayouts;
 
-public partial class MinisPageLayout : PageLayout
+public partial class MinisWithFooterPageLayout : PageLayout
 {
-    public MinisPageLayout()
+    public MinisWithFooterPageLayout()
     {
         InitializeComponent();
 

@@ -35,22 +35,32 @@ public partial class MainWindow : SukiWindow
         DetectLocalIp();
     }
 
-    // The server should prevent double-page loading
-    public void InitializePage(string pageId, List<WidgetDefinition> widgets)
+    // The server should prevent double-page loading and its okay to trust that
+    public void InitializePage(string pageId, List<WidgetDefinition> widgets, WidgetLayout layout)
     {
+        // Build widgets
         var widgetControls = widgets
             .Select(x => (x.Id, WidgetControl: WidgetConstructor.ConstructWidget(x)))
             .ToArray();
+
+        // Build page, attach widgets
+        PageLayout pageLayout = layout switch
+        {
+            WidgetLayout.Minis => new MinisPageLayout(),
+            WidgetLayout.MinisWithFooter => new MinisWithFooterPageLayout(),
+            _ => throw new ArgumentException("Layout is not supported or valid", nameof(layout))
+        };
+        pageLayout[PageLayout.WidgetsProperty] =
+            new AvaloniaList<(Guid, Control)>(widgetControls.Select(x => (x.Id, x.WidgetControl as Control)));
         
+        // Build tab
         var tab = new TabItem
         {
             Header = new TextBlock { Text = pageId },
-            Content = new MinisPageLayout
-            {
-                [MinisPageLayout.WidgetsProperty] = new AvaloniaList<(Guid, Control)>(widgetControls.Select(x => (x.Id, x.WidgetControl as Control)))
-            }
+            Content = pageLayout
         };
 
+        // Attach tab, register the whole chain
         TabControl.Items.Add(tab);
 
         _pages[pageId] = (tab, widgetControls.ToDictionary(x => x.Id, x => x.WidgetControl));

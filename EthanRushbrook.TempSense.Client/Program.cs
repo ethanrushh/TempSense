@@ -20,7 +20,7 @@ config.ValidateOrThrow();
 
 Console.WriteLine("DEBUG: Parsed config file");
 
-var sensors = new LinuxSensors();
+var sensors = new LinuxSensors(config.NetworkAdapterName ?? throw new Exception("No network adapter name provided"));
 sensors.Tick();
 
 if (config.Widgets is null)
@@ -51,7 +51,7 @@ connection.On("HelloFromServer", () => Console.WriteLine("Server says hello"));
 // Set up widget page on the server
 connection.On("RequestPageDefinition", async () =>
 {
-    await connection.SendAsync("ReceivePageDefinition", config.PageId, widgets.Select(x => x.Widget));
+    await connection.SendAsync("ReceivePageDefinition", config.PageId, widgets.Select(x => x.Widget), config.WidgetLayout);
 });
 
 // Connect to server until successful
@@ -103,7 +103,17 @@ string GetWidgetValue(ConfigWidgetDefinition widget)
             return $"{speed * 8 / 1024 / 1024:F2} mbps";
              
         case WidgetType.Memory:
-            return $"{sensors.GetMemoryStats().UsedPercentage:F2}";
+            if (widget.MemorySensorTarget == MemorySensorTarget.UsedPercentage)
+                return $"{(sensors.GetMemoryStats().UsedPercentage):F2}" + (widget.DisplayType == WidgetDisplayType.Readout ? "%" : "");
+
+            if (widget.MemorySensorTarget == MemorySensorTarget.Total)
+                return $"{(sensors.GetMemoryStats().Total / 1024.0 / 1024.0):F0} GiB"; // Memory chunks are in KiB size.
+            
+            if (widget.MemorySensorTarget == MemorySensorTarget.Free)
+                return $"{(sensors.GetMemoryStats().Available / 1024.0 / 1024.0):F0} GiB";
+
+            // Default means we've got an unsupported target which will fail to pass JSON conversion anyway
+            return "";
              
         case WidgetType.Sensor:
             if (widget.DeviceName is null || widget.SensorName is null || widget.FieldName is null)

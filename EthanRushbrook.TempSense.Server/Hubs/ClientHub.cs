@@ -24,7 +24,7 @@ public class ClientHub(ILogger<ClientHub> logger) : Hub
         await Clients.Caller.SendAsync("RequestPageDefinition");
     }
 
-    public async Task ReceivePageDefinition(string pageId, List<WidgetDefinition> widgets)
+    public async Task ReceivePageDefinition(string pageId, List<WidgetDefinition> widgets, WidgetLayout layout)
     {
         if (ServerInteropBridge.Instance is null)
             return;
@@ -41,7 +41,7 @@ public class ClientHub(ILogger<ClientHub> logger) : Hub
 
         ClientIdToPageId[Context.ConnectionId] = pageId;
         
-        ServerInteropBridge.Instance.InitializePage(pageId, widgets);
+        ServerInteropBridge.Instance.InitializePage(pageId, widgets, layout);
     }
 
     public async Task ReceiveDataframe(Dataframe dataframe)

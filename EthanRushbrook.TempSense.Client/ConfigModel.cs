@@ -16,7 +16,11 @@ public class ConfigModel
 
     [JsonRequired]
     [JsonPropertyName("widget_layout")]
-    public string? WidgetLayout { get; set; }
+    public WidgetLayout? WidgetLayout { get; set; }
+    
+    [JsonRequired]
+    [JsonPropertyName("network_adapter")]
+    public string? NetworkAdapterName { get; set; }
     
     [JsonRequired]
     [JsonPropertyName("widgets")]
