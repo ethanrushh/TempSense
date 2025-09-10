@@ -8,9 +8,9 @@
       "type": "Sensor",
       "widget_display_type": "Round",
       
-      "device_name": "CPU",
-      "sensor_name": "Temperature",
-      "field_name": "CPU Core #1",
+      "device_name": "coretemp-isa-0000",
+      "sensor_name": "Core 0",
+      "field_name": "temp2_input",
       
       "display_name": "CPU Core 0 Temp",
       "unit": "°C"
@@ -19,19 +19,18 @@
       "type": "Sensor",
       "widget_display_type": "Round",
       
-      "device_name": "CPU",
-      "sensor_name": "Temperature",
-      "field_name": "CPU Package",
+      "device_name": "coretemp-isa-0000",
+      "sensor_name": "Package id 0",
+      "field_name": "temp1_input",
       
       "display_name": "CPU Package (°C)",
       "unit": "°C"
     },
-    
     {
       "type": "Disk",
       "widget_display_type": "Readout",
       
-      "device_name": "C:",
+      "device_name": "/",
       
       "display_name": "Free Space (GiB)"
     },
@@ -43,26 +42,25 @@
 
       "display_name": "Memory Usage"
     },
-    
     {
       "type": "Network",
       "widget_display_type": "Readout",
       "header": "↑",
 
-      "device_name": "Intel(R) Ethernet Controller (3) I225-V",
+      "device_name": "enp4s0",
       "direction": "Up",
 
-      "display_name": "Ethernet Upload"
+      "display_name": "enp4s0 Upload"
     },
     {
       "type": "Network",
       "widget_display_type": "Readout",
       "header": "↓",
 
-      "device_name": "Intel(R) Ethernet Controller (3) I225-V",
+      "device_name": "enp4s0",
       "direction": "Down",
 
-      "display_name": "Ethernet Download"
+      "display_name": "enp4s0 Download"
     },
     
     {

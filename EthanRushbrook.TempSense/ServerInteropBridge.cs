@@ -25,7 +25,7 @@ public class ServerInteropBridge
 
     public void ApplyDataframe(Dataframe dataframe)
     {
-        Dispatcher.UIThread.Invoke(() =>
+        Dispatcher.UIThread.Post(() =>
         {
             _window.ApplyDataframe(dataframe);
         });

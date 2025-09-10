@@ -1,7 +1,8 @@
-﻿using System.Globalization;
+﻿using System.Diagnostics;
+using System.Globalization;
 using System.Text.Json;
 using EthanRushbrook.TempSense.Client;
-using EthanRushbrook.TempSense.Client.Linux;
+using EthanRushbrook.TempSense.Client.Sensors;
 using EthanRushbrook.TempSense.Contracts;
 using Microsoft.AspNetCore.SignalR.Client;
 
@@ -21,7 +22,8 @@ config.ValidateOrThrow();
 
 Console.WriteLine("DEBUG: Parsed config file");
 
-var sensors = new LinuxSensors();
+// Detects the platform we're on, gets the sensor engine for that platform. Very cool :)
+using var sensors = SystemSensors.GetAutoSensors(PlatformDetection.DetectOsPlatform());
 
 if (config.Widgets is null)
     throw new Exception("No widgets set in config");
@@ -68,23 +70,29 @@ while (true)
     catch (Exception ex) { Console.WriteLine($"Couldn't connect to the server because {ex.Message}, retrying."); await Task.Delay(1000);}
 }
 
+// Periodic timers are great because they'll adjust the delay to keep things in time
+var timer = new PeriodicTimer(TimeSpan.FromSeconds(0.5));
+
 // Main loop
-while (true)
+do
 {
+    var dataPoints = widgets.Select(x => new DataPoint
+    {
+        WidgetId = x.Widget.Id,
+        NewValue = GetWidgetValue(x.Definition),
+        NewHeader = x.Definition.Type == WidgetType.Sensor
+            ? GetWidgetValue(x.Definition) + x.Definition.Unit
+            : x.Widget.Header
+    }).ToList();
+
     if (connection.State == HubConnectionState.Connected)
         await connection.SendAsync("ReceiveDataframe", new Dataframe
         {
             PageId = config.PageId ?? throw new Exception("No page ID is set in config"),
-            DataPoints = widgets.Select(x => new DataPoint
-            {
-                WidgetId = x.Widget.Id,
-                NewValue = GetWidgetValue(x.Definition),
-                NewHeader = x.Definition.Type == WidgetType.Sensor ? GetWidgetValue(x.Definition) + x.Definition.Unit : x.Widget.Header
-            }).ToList()
+            DataPoints = dataPoints
         });
-    
-    await Task.Delay(100);
-}
+
+} while (await timer.WaitForNextTickAsync());
 
 
 

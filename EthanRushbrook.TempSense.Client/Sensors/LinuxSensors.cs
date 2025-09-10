@@ -1,10 +1,9 @@
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 using System.Text.Json;
 
-namespace EthanRushbrook.TempSense.Client.Linux;
+namespace EthanRushbrook.TempSense.Client.Sensors;
 
-public class LinuxSensors
+public class LinuxSensors : ISensors
 {
     private NetworkStatistics _previousNetworkStats = new()
     {
@@ -15,6 +14,8 @@ public class LinuxSensors
         Period = TimeSpan.FromSeconds(1),
         Timestamp = DateTime.UtcNow
     };
+    
+    public void Dispose() { }
 
     public double GetSensorValueOrDefault(string deviceName, string sensorName, string fieldName)
     {
@@ -53,16 +54,16 @@ public class LinuxSensors
     
     public MemoryStatistics GetMemoryStats()
     {
-        long memTotal = 0;
-        long memAvailable = 0;
+        ulong memTotal = 0;
+        ulong memAvailable = 0;
 
         foreach (var line in File.ReadLines("/proc/meminfo"))
         {
             if (line.StartsWith("MemTotal:"))
-                memTotal = long.Parse(line.Split([' '], StringSplitOptions.RemoveEmptyEntries)[1]);
+                memTotal = ulong.Parse(line.Split([' '], StringSplitOptions.RemoveEmptyEntries)[1]);
             else if (line.StartsWith("MemAvailable:"))
             {
-                memAvailable = long.Parse(line.Split([' '], StringSplitOptions.RemoveEmptyEntries)[1]);
+                memAvailable = ulong.Parse(line.Split([' '], StringSplitOptions.RemoveEmptyEntries)[1]);
                 break;
             }
         }

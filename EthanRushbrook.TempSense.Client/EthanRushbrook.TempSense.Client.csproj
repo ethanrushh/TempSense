@@ -8,6 +8,9 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <AdditionalFiles Include="config.linux.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </AdditionalFiles>
       <None Remove="config.json" />
       <AdditionalFiles Include="config.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -15,6 +18,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="LibreHardwareMonitorLib" Version="0.9.4" />
       <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="9.0.8" />
     </ItemGroup>
 

@@ -74,6 +74,7 @@ public partial class MainWindow : SukiWindow
         TabControl.Items.Remove(value.TabControl);
     }
 
+    // TODO: Instead of changing the property each time (could change >1 time per frame...), it should update a local state and each UI frame each widget should update itself
     public void ApplyDataframe(Dataframe dataframe)
     {
         foreach (var dataPoint in dataframe.DataPoints)
