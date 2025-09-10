@@ -6,20 +6,15 @@ namespace EthanRushbrook.TempSense.Client.Linux;
 
 public class LinuxSensors
 {
-    private NetworkStatistics _previousNetworkStats;
-
-    public LinuxSensors()
+    private NetworkStatistics _previousNetworkStats = new()
     {
-        _previousNetworkStats = new NetworkStatistics
-        {
-            DownloadBytes = 0,
-            UploadBytes = 0,
-            DeltaDownloadBytes = 0,
-            DeltaUploadBytes = 0,
-            Period = TimeSpan.FromSeconds(1),
-            Timestamp = DateTime.UtcNow
-        };
-    }
+        DownloadBytes = 0,
+        UploadBytes = 0,
+        DeltaDownloadBytes = 0,
+        DeltaUploadBytes = 0,
+        Period = TimeSpan.FromSeconds(1),
+        Timestamp = DateTime.UtcNow
+    };
 
     public double GetSensorValueOrDefault(string deviceName, string sensorName, string fieldName)
     {
