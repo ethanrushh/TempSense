@@ -13,7 +13,7 @@ foreach (var arg in args)
 {
     switch (arg)
     {
-        case "--show-sensors":
+        case "--list-sensors":
             sensors.ListSensors();
             return;
     }

@@ -1,5 +1,5 @@
 {
-  "server_endpoint": "http://localhost:5058/hub",
+  "server_endpoint": "http://10.0.0.62:5058/hub",
   "page_id": "Dev PC",
   
   "widget_layout": "MinisWithFooter",
@@ -8,7 +8,7 @@
       "type": "Sensor",
       "widget_display_type": "Round",
       
-      "device_name": "CPU",
+      "device_name": "12th Gen Intel Core i9-12900KF",
       "sensor_name": "Usage",
       "field_name": "CPU Total",
       
@@ -19,7 +19,7 @@
       "type": "Sensor",
       "widget_display_type": "Round",
       
-      "device_name": "CPU",
+      "device_name": "12th Gen Intel Core i9-12900KF",
       "sensor_name": "Temperature",
       "field_name": "CPU Package",
       

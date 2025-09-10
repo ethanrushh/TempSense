@@ -34,7 +34,7 @@ public class WindowsSensors : ISensors
     };
 
     // TODO: Move somewhere more appropriate to keep everything in sync
-    private readonly HardwareType[] SupportedHardware = [HardwareType.Cpu];
+    private readonly HardwareType[] SupportedHardware = [HardwareType.Cpu, HardwareType.GpuNvidia, HardwareType.GpuIntel, HardwareType.GpuAmd];
     
     private readonly Computer _computer;
     private readonly Timer? _cpuUpdateTimer;
@@ -43,6 +43,7 @@ public class WindowsSensors : ISensors
         _computer = new Computer
         {
             IsCpuEnabled = true,
+            IsGpuEnabled = true
         };
 
         _computer.Open();
@@ -79,7 +80,8 @@ public class WindowsSensors : ISensors
         
         _computer.Hardware.Where(x => SupportedHardware.Contains(x.HardwareType)).ToList().ForEach(hardware =>
         {
-            Console.WriteLine(Environment.NewLine + $"====== {hardware.HardwareType.ToString().ToUpper()} ======" + Environment.NewLine + Environment.NewLine);
+            Console.WriteLine(Environment.NewLine + $"====== {hardware.HardwareType.ToString().ToUpper()} ======");
+            Console.WriteLine(hardware.Name + Environment.NewLine + Environment.NewLine);
             
             hardware.Sensors.ToList().GroupBy(x => x.SensorType).ToList().ForEach(sensor =>
             {
@@ -98,13 +100,7 @@ public class WindowsSensors : ISensors
 
     public double GetSensorValueOrDefault(string deviceName, string sensorName, string fieldName)
     {
-        var deviceType = deviceName switch
-        {
-            "CPU" => HardwareType.Cpu,
-            _ => throw new ArgumentException("Unsupported device name", nameof(deviceName))
-        };
-
-        var hardware = _computer.Hardware.FirstOrDefault(x => x.HardwareType == deviceType);
+        var hardware = _computer.Hardware.FirstOrDefault(x => x.Name == deviceName);
         
         if (hardware is null)
             throw new Exception($"Hardware {deviceName} not found");
