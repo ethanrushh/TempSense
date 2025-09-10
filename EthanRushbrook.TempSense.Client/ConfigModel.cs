@@ -19,10 +19,6 @@ public class ConfigModel
     public WidgetLayout? WidgetLayout { get; set; }
     
     [JsonRequired]
-    [JsonPropertyName("network_adapter")]
-    public string? NetworkAdapterName { get; set; }
-    
-    [JsonRequired]
     [JsonPropertyName("widgets")]
     public List<ConfigWidgetDefinition>? Widgets { get; set; }
 }
@@ -61,6 +57,9 @@ public class ConfigWidgetDefinition
     
     [JsonPropertyName("memory_sensor_target")]
     public MemorySensorTarget? MemorySensorTarget { get; set; }
+    
+    [JsonPropertyName("network_adapter")]
+    public string? NetworkAdapterName { get; set; }
 }
 
 [JsonConverter(typeof(JsonStringEnumConverter))]

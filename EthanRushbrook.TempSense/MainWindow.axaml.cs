@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using Avalonia.Collections;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
 using EthanRushbrook.TempSense.Components.PageLayouts;
 using EthanRushbrook.TempSense.Components.Widgets;
@@ -122,6 +123,6 @@ public partial class MainWindow : SukiWindow
     {
         var localIp = LocalNetworkInterop.GetLocalIPv4();
         
-        LocalIpHeader.Header = localIp ?? "No IPv4 detected";
+        LocalIpHeader[HeaderedContentControl.HeaderProperty] = localIp ?? "No IPv4 detected";
     }
 }

@@ -4,64 +4,28 @@ using System.Text.Json;
 
 namespace EthanRushbrook.TempSense.Client.Linux;
 
-public class LinuxSensors : IDisposable
+public class LinuxSensors
 {
-    private readonly string _networkAdapterName;
-    private JsonDocument? _lastSensorRun;
-    private MemoryStatistics? _lastMemoryStats;
-    private NetworkStatistics? _currentNetworkStats;
     private NetworkStatistics _previousNetworkStats;
 
-    public LinuxSensors(string networkAdapterName)
+    public LinuxSensors()
     {
-        _networkAdapterName = networkAdapterName;
-        var (uploadBytes, downloadBytes) = GetNetworkBytes(networkAdapterName);
-        
         _previousNetworkStats = new NetworkStatistics
         {
             DownloadBytes = 0,
-            UploadBytes = uploadBytes,
-            DeltaDownloadBytes = downloadBytes,
+            UploadBytes = 0,
+            DeltaDownloadBytes = 0,
             DeltaUploadBytes = 0,
             Period = TimeSpan.FromSeconds(1),
             Timestamp = DateTime.UtcNow
         };
     }
-    
-    public void Tick()
+
+    public double GetSensorValueOrDefault(string deviceName, string sensorName, string fieldName)
     {
-        _lastMemoryStats = UpdateMemoryStats();
-        _lastSensorRun = JsonDocument.Parse(RunSensors());
+        var sensorRun = JsonDocument.Parse(RunSensors());
         
-        var (uploadBytes, downloadBytes) = GetNetworkBytes(_networkAdapterName);
-        var now = DateTime.UtcNow;
-
-        _currentNetworkStats = new NetworkStatistics
-        {
-            UploadBytes = uploadBytes,
-            DownloadBytes = downloadBytes,
-    
-            DeltaUploadBytes = uploadBytes - _previousNetworkStats.UploadBytes,
-            DeltaDownloadBytes = downloadBytes - _previousNetworkStats.DownloadBytes,
-
-            Timestamp = now,
-            Period = now - _previousNetworkStats.Timestamp
-        };
-
-        _previousNetworkStats = new NetworkStatistics
-        {
-            UploadBytes = uploadBytes,
-            DownloadBytes = downloadBytes,
-            Timestamp = now
-        };
-    }
-
-    public double? GetSensorValueOrDefault(string deviceName, string sensorName, string fieldName)
-    {
-        if (_lastSensorRun is null)
-            throw new Exception("Run Tick before reading sensor");
-        
-        if (_lastSensorRun.RootElement.TryGetProperty(deviceName, out JsonElement coretemp))
+        if (sensorRun.RootElement.TryGetProperty(deviceName, out JsonElement coretemp))
         {
             if (coretemp.TryGetProperty(sensorName, out JsonElement package))
             {
@@ -72,15 +36,8 @@ public class LinuxSensors : IDisposable
             }
         }
 
-        return null;
+        return 0;
     }
-
-    [Pure]
-    public MemoryStatistics GetMemoryStats() => _lastMemoryStats ?? throw new Exception("Run Tick before reading memory");
-    [Pure]
-    public NetworkStatistics GetNetworkStats() => _currentNetworkStats ?? throw new Exception("Run Tick before reading network");
-
-    public void Dispose() => _lastSensorRun?.Dispose();
 
     private static string RunSensors()
     {
@@ -99,7 +56,7 @@ public class LinuxSensors : IDisposable
         return process is null ? throw new Exception("Unable to find sensors") : process.StandardOutput.ReadToEnd();
     }
     
-    private static MemoryStatistics UpdateMemoryStats()
+    public MemoryStatistics GetMemoryStats()
     {
         long memTotal = 0;
         long memAvailable = 0;
@@ -126,34 +83,72 @@ public class LinuxSensors : IDisposable
         };
     }
     
-    private static (long UploadBytes, long DownloadBytes) GetNetworkBytes(string adapter)
+    public NetworkStatistics GetNetworkStats(string adapter)
     {
-        foreach (var line in File.ReadLines("/proc/net/dev"))
+        var adapterStats = File.ReadLines("/proc/net/dev").FirstOrDefault(x => x.Contains(adapter + ":"));
+
+        if (adapterStats is null)
+            return new NetworkStatistics
+            {
+                DownloadBytes = 0,
+                UploadBytes = 0,
+                DeltaDownloadBytes = 0,
+                DeltaUploadBytes = 0,
+                Period = TimeSpan.FromSeconds(1),
+                Timestamp = DateTime.UtcNow
+            };
+        
+        var parts = adapterStats.Split([' ', ':'], StringSplitOptions.RemoveEmptyEntries);
+        var downloadBytes = long.Parse(parts[1]);
+        var uploadBytes = long.Parse(parts[9]);
+        
+        var now = DateTime.UtcNow;
+
+        var currentNetworkStats = new NetworkStatistics
         {
-            if (!line.Contains(adapter + ":")) 
-                continue;
-            
-            var parts = line.Split([' ', ':'], StringSplitOptions.RemoveEmptyEntries);
-            var downloadBytes = long.Parse(parts[1]);
-            var uploadBytes = long.Parse(parts[9]);
+            UploadBytes = uploadBytes,
+            DownloadBytes = downloadBytes,
+    
+            DeltaUploadBytes = uploadBytes - _previousNetworkStats.UploadBytes,
+            DeltaDownloadBytes = downloadBytes - _previousNetworkStats.DownloadBytes,
 
-            return (uploadBytes, downloadBytes);
-        }
+            Timestamp = now,
+            Period = now - _previousNetworkStats.Timestamp
+        };
 
-        throw new Exception("Network adapter not found or readable");
+        _previousNetworkStats = new NetworkStatistics
+        {
+            UploadBytes = uploadBytes,
+            DownloadBytes = downloadBytes,
+            Timestamp = now
+        };
+
+        return currentNetworkStats;
     }
 
-    public DiskStatistics? GetDiskStats(string directory)
+    public DiskStatistics GetDiskStats(string directory)
     {
         var root = Path.GetPathRoot(directory);
         
         if (root is null)
-            throw new ArgumentException("Unable to find root directory",  nameof(directory));
+            return new DiskStatistics
+            {
+                Available = 0,
+                Total = 0,
+                UsedPercentage = 0,
+                Used = 0
+            };
         
         var drive = new DriveInfo(root);
 
         if (!drive.IsReady)
-            return null;
+            return new DiskStatistics
+            {
+                Available = 0,
+                Total = 0,
+                UsedPercentage = 0,
+                Used = 0
+            };
         
         var freePercent = (double)drive.AvailableFreeSpace / drive.TotalSize * 100;
 

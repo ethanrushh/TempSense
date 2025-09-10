@@ -1,8 +1,8 @@
 {
-  "server_endpoint": "http://10.0.0.62:5058/hub",
+  "server_endpoint": "http://localhost:5058/hub",
   "page_id": "Dev PC",
   
-  "widget_layout": "mini_grid",
+  "widget_layout": "MinisWithFooter",
   "widgets": [
     {
       "type": "Sensor",
@@ -61,6 +61,23 @@
       "direction": "Down",
 
       "display_name": "enp4s0 Download"
+    },
+    
+    {
+      "type": "Memory",
+      "widget_display_type": "Readout",
+
+      "memory_sensor_target": "Total",
+
+      "display_name": "Total Memory"
+    },
+    {
+      "type": "Memory",
+      "widget_display_type": "Readout",
+
+      "memory_sensor_target": "Free",
+
+      "display_name": "Available RAM"
     }
   ]
 }

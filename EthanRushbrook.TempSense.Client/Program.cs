@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Globalization;
+using System.Text.Json;
 using EthanRushbrook.TempSense.Client;
 using EthanRushbrook.TempSense.Client.Linux;
 using EthanRushbrook.TempSense.Contracts;
@@ -20,8 +21,7 @@ config.ValidateOrThrow();
 
 Console.WriteLine("DEBUG: Parsed config file");
 
-var sensors = new LinuxSensors(config.NetworkAdapterName ?? throw new Exception("No network adapter name provided"));
-sensors.Tick();
+var sensors = new LinuxSensors();
 
 if (config.Widgets is null)
     throw new Exception("No widgets set in config");
@@ -71,9 +71,6 @@ while (true)
 // Main loop
 while (true)
 {
-    // Update once per second
-    sensors.Tick();
-    
     if (connection.State == HubConnectionState.Connected)
         await connection.SendAsync("ReceiveDataframe", new Dataframe
         {
@@ -97,35 +94,35 @@ string GetWidgetValue(ConfigWidgetDefinition widget)
     switch (widget.Type)
     {
         case WidgetType.Network:
-            var speed = widget.Direction == NetworkDirection.Down
-                ? sensors.GetNetworkStats().DownloadSpeed
-                : sensors.GetNetworkStats().UploadSpeed;
+            var networkStats = sensors.GetNetworkStats(widget.DeviceName ??
+                                                       throw new Exception("Device name missing for widget " +
+                                                                           widget.DisplayName));
+
+            var speed = widget.Direction == NetworkDirection.Down ? networkStats.DownloadSpeed : networkStats.UploadSpeed;
             return $"{speed * 8 / 1024 / 1024:F2} mbps";
              
         case WidgetType.Memory:
-            if (widget.MemorySensorTarget == MemorySensorTarget.UsedPercentage)
-                return $"{(sensors.GetMemoryStats().UsedPercentage):F2}" + (widget.DisplayType == WidgetDisplayType.Readout ? "%" : "");
+            var memoryStats = sensors.GetMemoryStats();
+            return widget.MemorySensorTarget switch
+            {
+                MemorySensorTarget.UsedPercentage => $"{memoryStats.UsedPercentage:F2}" +
+                                                     (widget.DisplayType == WidgetDisplayType.Readout ? "%" : ""),
+                MemorySensorTarget.Total => $"{memoryStats.Total / 1024.0 / 1024.0:F0} GiB",
+                MemorySensorTarget.Free => $"{memoryStats.Available / 1024.0 / 1024.0:F0} GiB",
+                _ => "" // Default means we've got an unsupported target which will fail to pass JSON conversion anyway
+            };
 
-            if (widget.MemorySensorTarget == MemorySensorTarget.Total)
-                return $"{(sensors.GetMemoryStats().Total / 1024.0 / 1024.0):F0} GiB"; // Memory chunks are in KiB size.
-            
-            if (widget.MemorySensorTarget == MemorySensorTarget.Free)
-                return $"{(sensors.GetMemoryStats().Available / 1024.0 / 1024.0):F0} GiB";
-
-            // Default means we've got an unsupported target which will fail to pass JSON conversion anyway
-            return "";
-             
         case WidgetType.Sensor:
             if (widget.DeviceName is null || widget.SensorName is null || widget.FieldName is null)
                 throw new Exception("Invalid sensor details in config");
             
-            return sensors.GetSensorValueOrDefault(widget.DeviceName, widget.SensorName, widget.FieldName)?.ToString() ?? "0";
+            return sensors.GetSensorValueOrDefault(widget.DeviceName, widget.SensorName, widget.FieldName).ToString(CultureInfo.InvariantCulture);
         
         case WidgetType.Disk:
             if (widget.DeviceName is null)
                 throw new Exception("Invalid sensor details in config");
             
-            return $"{sensors.GetDiskStats(widget.DeviceName)?.Available / 1024.0 / 1024.0 / 1024.0:F2} GiB";
+            return $"{sensors.GetDiskStats(widget.DeviceName).Available / 1024.0 / 1024.0 / 1024.0:F2} GiB";
         
         default:
             return "";
