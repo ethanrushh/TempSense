@@ -9,11 +9,11 @@
       "widget_display_type": "Round",
       
       "device_name": "CPU",
-      "sensor_name": "Temperature",
-      "field_name": "CPU Core #1",
+      "sensor_name": "Usage",
+      "field_name": "CPU Total",
       
-      "display_name": "CPU Core 0 Temp",
-      "unit": "°C"
+      "display_name": "CPU Total Usage",
+      "unit": "%"
     },
     {
       "type": "Sensor",

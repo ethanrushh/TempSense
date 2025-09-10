@@ -124,7 +124,7 @@ string GetWidgetValue(ConfigWidgetDefinition widget)
             if (widget.DeviceName is null || widget.SensorName is null || widget.FieldName is null)
                 throw new Exception("Invalid sensor details in config");
             
-            return sensors.GetSensorValueOrDefault(widget.DeviceName, widget.SensorName, widget.FieldName).ToString(CultureInfo.InvariantCulture);
+            return sensors.GetSensorValueOrDefault(widget.DeviceName, widget.SensorName, widget.FieldName).ToString("F0");
         
         case WidgetType.Disk:
             if (widget.DeviceName is null)

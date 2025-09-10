@@ -83,6 +83,7 @@ public class WindowsSensors : ISensors
         var sensorType = sensorName switch
         {
             "Temperature" => SensorType.Temperature,
+            "Usage" => SensorType.Load,
             _ => throw new Exception("Unsupported sensor type")
         };
 
