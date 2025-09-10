@@ -67,6 +67,35 @@ public class WindowsSensors : ISensors
         _computer.Close();
     }
 
+    public void ListSensors()
+    {
+        Console.WriteLine("====== Networking ======" + Environment.NewLine + Environment.NewLine);
+        NetworkInterface.GetAllNetworkInterfaces().ToList().ForEach(nic =>
+        {
+            Console.WriteLine($"{nic.Description}:");
+            Console.WriteLine($"    Status: {nic.OperationalStatus}");
+            Console.WriteLine($"    Type: {nic.Name}" + Environment.NewLine);
+        });
+        
+        _computer.Hardware.Where(x => SupportedHardware.Contains(x.HardwareType)).ToList().ForEach(hardware =>
+        {
+            Console.WriteLine(Environment.NewLine + $"====== {hardware.HardwareType.ToString().ToUpper()} ======" + Environment.NewLine + Environment.NewLine);
+            
+            hardware.Sensors.ToList().GroupBy(x => x.SensorType).ToList().ForEach(sensor =>
+            {
+                Console.WriteLine($"{sensor.Key}:");
+                sensor.ToList().ForEach(sens => Console.WriteLine(sens.Name));
+                
+                Console.WriteLine();
+            });
+        });
+        
+        Console.WriteLine(Environment.NewLine + "====== Memory ======" + Environment.NewLine + Environment.NewLine);
+        Console.WriteLine("Available");
+        Console.WriteLine("Used");
+        Console.WriteLine("UsedPercentage" + Environment.NewLine + Environment.NewLine);
+    }
+
     public double GetSensorValueOrDefault(string deviceName, string sensorName, string fieldName)
     {
         var deviceType = deviceName switch

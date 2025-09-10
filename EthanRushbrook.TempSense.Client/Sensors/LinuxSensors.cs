@@ -35,6 +35,9 @@ public class LinuxSensors : ISensors
         return 0;
     }
 
+    public void ListSensors()
+        => throw new NotImplementedException();
+
     private static string RunSensors()
     {
         var psi = new ProcessStartInfo

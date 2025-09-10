@@ -1,10 +1,24 @@
-﻿using System.Diagnostics;
-using System.Globalization;
-using System.Text.Json;
+﻿using System.Text.Json;
 using EthanRushbrook.TempSense.Client;
 using EthanRushbrook.TempSense.Client.Sensors;
 using EthanRushbrook.TempSense.Contracts;
 using Microsoft.AspNetCore.SignalR.Client;
+
+
+
+// Detects the platform we're on, gets the sensor engine for that platform. Very cool :)
+using var sensors = SystemSensors.GetAutoSensors(PlatformDetection.DetectOsPlatform());
+
+foreach (var arg in args)
+{
+    switch (arg)
+    {
+        case "--show-sensors":
+            sensors.ListSensors();
+            return;
+    }
+}
+
 
 var configFile = File.OpenRead("config.json");
 
@@ -22,8 +36,6 @@ config.ValidateOrThrow();
 
 Console.WriteLine("DEBUG: Parsed config file");
 
-// Detects the platform we're on, gets the sensor engine for that platform. Very cool :)
-using var sensors = SystemSensors.GetAutoSensors(PlatformDetection.DetectOsPlatform());
 
 if (config.Widgets is null)
     throw new Exception("No widgets set in config");

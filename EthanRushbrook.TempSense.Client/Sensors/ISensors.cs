@@ -6,4 +6,5 @@ public interface ISensors : IDisposable
     public MemoryStatistics GetMemoryStats();
     public NetworkStatistics GetNetworkStats(string adapter);
     public DiskStatistics GetDiskStats(string directory);
+    public void ListSensors();
 }
