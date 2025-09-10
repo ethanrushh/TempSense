@@ -108,14 +108,14 @@ public class WindowsSensors : ISensors
         var sensorType = sensorName switch
         {
             "Temperature" => SensorType.Temperature,
-            "Usage" => SensorType.Load,
+            "Load" => SensorType.Load,
             _ => throw new Exception("Unsupported sensor type")
         };
 
         var sensor = hardware.Sensors.FirstOrDefault(x => x.SensorType == sensorType && x.Name == fieldName);
 
         if (sensor is null)
-            throw new Exception($"Sensor ${sensorType}:${fieldName} not found");
+            throw new Exception($"Sensor {sensorType}:{fieldName} not found");
 
         return sensor.Value.GetValueOrDefault();
     }

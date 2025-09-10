@@ -9,7 +9,7 @@
       "widget_display_type": "Round",
       
       "device_name": "12th Gen Intel Core i9-12900KF",
-      "sensor_name": "Usage",
+      "sensor_name": "Load",
       "field_name": "CPU Total",
       
       "display_name": "CPU Total Usage",
@@ -19,12 +19,12 @@
       "type": "Sensor",
       "widget_display_type": "Round",
       
-      "device_name": "12th Gen Intel Core i9-12900KF",
-      "sensor_name": "Temperature",
-      "field_name": "CPU Package",
+      "device_name": "NVIDIA GeForce RTX 4090",
+      "sensor_name": "Load",
+      "field_name": "GPU Core",
       
-      "display_name": "CPU Package (°C)",
-      "unit": "°C"
+      "display_name": "RTX 4090 Load",
+      "unit": "%"
     },
     
     {
