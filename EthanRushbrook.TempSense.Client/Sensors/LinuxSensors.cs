@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Net.NetworkInformation;
 using System.Text.Json;
 
 namespace EthanRushbrook.TempSense.Client.Sensors;
@@ -36,7 +37,62 @@ public class LinuxSensors : ISensors
     }
 
     public void ListSensors()
-        => throw new NotImplementedException();
+    {
+        Console.WriteLine("====== Networking ======" + Environment.NewLine + Environment.NewLine);
+        NetworkInterface.GetAllNetworkInterfaces().ToList().ForEach(nic =>
+        {
+            Console.WriteLine($"{nic.Description}:");
+            Console.WriteLine($"    Status: {nic.OperationalStatus}");
+        });
+        
+        // _computer.Hardware.Where(x => SupportedHardware.Contains(x.HardwareType)).ToList().ForEach(hardware =>
+        // {
+        //     Console.WriteLine(Environment.NewLine + $"====== {hardware.HardwareType.ToString().ToUpper()} ======");
+        //     Console.WriteLine(hardware.Name + Environment.NewLine + Environment.NewLine);
+        //     
+        //     hardware.Sensors.ToList().GroupBy(x => x.SensorType).ToList().ForEach(sensor =>
+        //     {
+        //         Console.WriteLine($"{sensor.Key}:");
+        //         sensor.ToList().ForEach(sens => Console.WriteLine(sens.Name));
+        //         
+        //         Console.WriteLine();
+        //     });
+        // });
+        
+        
+        Console.WriteLine(Environment.NewLine + "====== Sensors ======" + Environment.NewLine + Environment.NewLine);
+        
+        var sensors = JsonDocument.Parse(RunSensors());
+
+        foreach (var device in sensors.RootElement.EnumerateObject())
+        {
+            Console.WriteLine($"{device.Name}:");
+
+            foreach (var sensor in device.Value.EnumerateObject())
+            {
+                if (sensor.NameEquals("Adapter"))
+                    continue;
+
+                var values = sensor.Value.EnumerateObject();
+
+                if (!values.Any())
+                    continue;
+                
+                Console.WriteLine($"    {sensor.Name}:");
+
+                foreach (var value in values)
+                {
+                    Console.WriteLine($"        {value.Name}");
+                }
+            }
+        }
+        
+        
+        Console.WriteLine(Environment.NewLine + "====== Memory ======" + Environment.NewLine + Environment.NewLine);
+        Console.WriteLine("Available");
+        Console.WriteLine("Used");
+        Console.WriteLine("UsedPercentage" + Environment.NewLine + Environment.NewLine);
+    }
 
     private static string RunSensors()
     {
