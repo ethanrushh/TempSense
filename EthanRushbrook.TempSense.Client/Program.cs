@@ -54,11 +54,14 @@ var connection = new HubConnectionBuilder()
     .Build();
 
 // Restart connection if closed
-connection.Closed += async _ =>
-{
-    await Task.Delay(1000);
-    await connection.StartAsync();
-};
+// connection.Closed += async _ =>
+// {
+//     Task.Run(async () =>
+//     {
+//         await Task.Delay(1000);
+//         await connection.StartAsync();
+//     });
+// };
 
 connection.On("HelloFromServer", () => Console.WriteLine("Server says hello"));
 

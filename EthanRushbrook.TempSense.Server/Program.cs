@@ -1,3 +1,6 @@
+using Avalonia;
+using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Threading;
 using EthanRushbrook.TempSense.Server.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,4 +29,10 @@ app.MapControllers();
 
 app.MapHub<ClientHub>("/hub");
 
-Task.WaitAll(Task.Run(app.Run), Task.Run(() => EthanRushbrook.TempSense.Program.Main([])));
+var webTask = Task.Run(() => app.Run());
+var avaloniaTask = Task.Run(() => EthanRushbrook.TempSense.Program.Main([]));
+
+// Wait until both have exited
+await Task.WhenAny(webTask, avaloniaTask);
+
+Environment.Exit(0);

@@ -1,5 +1,5 @@
 {
-  "server_endpoint": "http://localhost:5058/hub",
+  "server_endpoint": "http://10.0.0.62:5058/hub",
   "page_id": "Dev PC",
   
   "widget_layout": "MinisWithFooter",
@@ -8,29 +8,30 @@
       "type": "Sensor",
       "widget_display_type": "Round",
       
-      "device_name": "coretemp-isa-0000",
-      "sensor_name": "Core 0",
-      "field_name": "temp2_input",
+      "device_name": "12th Gen Intel Core i9-12900KF",
+      "sensor_name": "Load",
+      "field_name": "CPU Total",
       
-      "display_name": "CPU Core 0 Temp",
-      "unit": "°C"
+      "display_name": "CPU Total Usage",
+      "unit": "%"
     },
     {
       "type": "Sensor",
       "widget_display_type": "Round",
       
-      "device_name": "coretemp-isa-0000",
-      "sensor_name": "Package id 0",
-      "field_name": "temp1_input",
+      "device_name": "NVIDIA GeForce RTX 4090",
+      "sensor_name": "Load",
+      "field_name": "GPU Core",
       
-      "display_name": "CPU Package (°C)",
-      "unit": "°C"
+      "display_name": "RTX 4090 Load",
+      "unit": "%"
     },
+    
     {
       "type": "Disk",
       "widget_display_type": "Readout",
       
-      "device_name": "/",
+      "device_name": "C:",
       
       "display_name": "Free Space (GiB)"
     },
@@ -42,25 +43,26 @@
 
       "display_name": "Memory Usage"
     },
+    
     {
       "type": "Network",
       "widget_display_type": "Readout",
       "header": "↑",
 
-      "device_name": "enp4s0",
+      "device_name": "Intel(R) Ethernet Controller (3) I225-V",
       "direction": "Up",
 
-      "display_name": "enp4s0 Upload"
+      "display_name": "Ethernet Upload"
     },
     {
       "type": "Network",
       "widget_display_type": "Readout",
       "header": "↓",
 
-      "device_name": "enp4s0",
+      "device_name": "Intel(R) Ethernet Controller (3) I225-V",
       "direction": "Down",
 
-      "display_name": "enp4s0 Download"
+      "display_name": "Ethernet Download"
     },
     
     {
