@@ -1,3 +1,4 @@
+#if WINDOWS
 using System.Diagnostics;
 using EthanRushbrook.TempSense.Client.Windows;
 using System.Net.NetworkInformation;
@@ -225,3 +226,4 @@ public class WindowsSensors : ISensors
         };
     }
 }
+#endif
