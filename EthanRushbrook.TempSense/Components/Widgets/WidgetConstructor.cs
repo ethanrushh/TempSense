@@ -12,27 +12,27 @@ public static class WidgetConstructor
         {
             WidgetDisplayType.Fluid => new FluidWidget
             {
-                [FluidWidget.CaptionProperty] = definition.Caption,
-                [WidgetBase.ValueProperty] = double.Parse(definition.InitialValue)
+                Caption = definition.Caption,
+                Value = double.Parse(definition.InitialValue)
             },
             WidgetDisplayType.Readout => new ReadoutWidget
             {
-                [ReadoutWidget.CaptionProperty] = definition.Caption,
-                [WidgetBase.ValueProperty] = definition.InitialValue,
-                [WidgetBase.HeaderProperty] = definition.Header
+                Caption = definition.Caption,
+                Value = definition.InitialValue,
+                Header = definition.Header
             },
             WidgetDisplayType.Round => new CircleWidget
             {
-                [CircleWidget.CaptionProperty] = definition.Caption,
-                [WidgetBase.ValueProperty] = double.Parse(definition.InitialValue),
-                [WidgetBase.HeaderProperty] = definition.Header
+                Caption = definition.Caption,
+                Value = double.Parse(definition.InitialValue),
+                Header = definition.Header
             },
             _ => throw new Exception("Unsupported widget type")
         };
 
         return new WidgetTemplate
         {
-            [WidgetTemplate.WidgetProperty] = widget
+            Widget = widget
         };
     }
 }

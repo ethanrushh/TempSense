@@ -125,6 +125,6 @@ public partial class MainWindow : SukiWindow
     {
         var localIp = LocalNetworkInterop.GetLocalIPv4();
         
-        LocalIpHeader[HeaderedContentControl.HeaderProperty] = localIp ?? "No IPv4 detected";
+        LocalIpHeader.Header = localIp ?? "No IPv4 detected";
     }
 }
