@@ -6,7 +6,8 @@ namespace EthanRushbrook.TempSense.Server.Hubs;
 
 public class ClientHub(ILogger<ClientHub> logger) : Hub
 {
-    private static readonly ConcurrentDictionary<string, string> ClientIdToPageId = new();
+    // (ConnectionID => PageIDs)
+    private static readonly ConcurrentDictionary<string, List<string>> ClientIdToPageId = new();
     
     public override async Task OnConnectedAsync()
     {
@@ -20,16 +21,18 @@ public class ClientHub(ILogger<ClientHub> logger) : Hub
         
         await base.OnConnectedAsync();
 
+        ClientIdToPageId[Context.ConnectionId] = [];
+
         await Clients.Caller.SendAsync("HelloFromServer");
         await Clients.Caller.SendAsync("RequestPageDefinition");
     }
 
-    public async Task ReceivePageDefinition(string pageId, List<WidgetDefinition> widgets, WidgetLayout layout)
+    public async Task ReceivePageDefinition(PageDefinition pageDefinition)
     {
         if (ServerInteropBridge.Instance is null)
             return;
 
-        if (ClientIdToPageId.Values.Contains(pageId))
+        if (ClientIdToPageId.Values.Any(x => x.Contains(pageDefinition.PageName)))
         {
             // TODO This should kick the original instead and replace with the new
             logger.LogWarning("Received a page that already is registered. Booting connection.");
@@ -39,9 +42,9 @@ public class ClientHub(ILogger<ClientHub> logger) : Hub
             return;
         }
 
-        ClientIdToPageId[Context.ConnectionId] = pageId;
+        ClientIdToPageId[Context.ConnectionId].Add(pageDefinition.PageName);
         
-        ServerInteropBridge.Instance.InitializePage(pageId, widgets, layout);
+        ServerInteropBridge.Instance.InitializePage(pageDefinition);
     }
 
     public async Task ReceiveDataframe(Dataframe dataframe)
@@ -58,11 +61,12 @@ public class ClientHub(ILogger<ClientHub> logger) : Hub
         
         await base.OnDisconnectedAsync(exception);
 
-        ClientIdToPageId.Remove(Context.ConnectionId, out var pageId);
+        ClientIdToPageId.Remove(Context.ConnectionId, out var pages);
         
-        logger.LogInformation("Removing page {PageId}", pageId ?? "(none)");
+        logger.LogInformation("Removing pages {PageId}", pages is not null ? string.Join(", ", pages) : "(none)");
         
-        if (ServerInteropBridge.Instance is not null && pageId is not null)
-            ServerInteropBridge.Instance.RemovePage(pageId);
+        if (ServerInteropBridge.Instance is not null && pages is not null)
+            foreach (var page in pages)
+                ServerInteropBridge.Instance.RemovePage(page);
     }
 }

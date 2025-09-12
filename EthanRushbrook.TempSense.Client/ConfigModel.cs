@@ -13,6 +13,25 @@ public class ConfigModel
     [JsonRequired]
     [JsonPropertyName("page_id")]
     public string? PageId { get; set; }
+    
+    [JsonRequired]
+    [JsonPropertyName("pages")]
+    public List<ConfigPageDefinition>? Pages { get; set; }
+}
+
+public class ConfigPageDefinition
+{
+    [JsonRequired]
+    [JsonPropertyName("page_name")]
+    public string? PageName { get; set; }
+    
+    [JsonRequired]
+    [JsonPropertyName("rows")]
+    public string? RowDefinitions { get; set; }
+    
+    [JsonRequired]
+    [JsonPropertyName("cols")]
+    public string? ColumnDefinitions { get; set; }
 
     [JsonRequired]
     [JsonPropertyName("widget_layout")]

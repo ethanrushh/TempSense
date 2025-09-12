@@ -37,34 +37,35 @@ public partial class MainWindow : SukiWindow
     }
 
     // The server should prevent double-page loading and its okay to trust that
-    public void InitializePage(string pageId, List<WidgetDefinition> widgets, WidgetLayout layout)
+    public void InitializePage(PageDefinition pageDefinition)
     {
         // Build widgets
-        var widgetControls = widgets
+        var widgetControls = pageDefinition.Widgets
             .Select(x => (x.Id, WidgetControl: WidgetConstructor.ConstructWidget(x)))
             .ToArray();
 
         // Build page, attach widgets
-        PageLayout pageLayout = layout switch
+        PageLayout pageLayout = pageDefinition.Layout switch
         {
             WidgetLayout.Minis => new MinisPageLayout(),
             WidgetLayout.MinisWithFooter => new MinisWithFooterPageLayout(),
-            _ => throw new ArgumentException("Layout is not supported or valid", nameof(layout))
+            _ => throw new ArgumentException("Layout is not supported or valid", nameof(pageDefinition))
         };
-        pageLayout[PageLayout.WidgetsProperty] =
-            new AvaloniaList<(Guid, Control)>(widgetControls.Select(x => (x.Id, x.WidgetControl as Control)));
+        pageLayout.Widgets = new AvaloniaList<(Guid, Control)>(widgetControls.Select(x => (x.Id, x.WidgetControl as Control)));
+        pageLayout.Rows = RowDefinitions.Parse(pageDefinition.RowDefinitions);
+        pageLayout.Columns = ColumnDefinitions.Parse(pageDefinition.ColumnDefinitions);
         
         // Build tab
         var tab = new TabItem
         {
-            Header = new TextBlock { Text = pageId },
+            Header = new TextBlock { Text = pageDefinition.PageName },
             Content = pageLayout
         };
 
         // Attach tab, register the whole chain
         TabControl.Items.Add(tab);
 
-        _pages[pageId] = (tab, widgetControls.ToDictionary(x => x.Id, x => x.WidgetControl));
+        _pages[pageDefinition.PageName] = (tab, widgetControls.ToDictionary(x => x.Id, x => x.WidgetControl));
     }
 
     public void RemovePage(string pageId)
@@ -84,14 +85,14 @@ public partial class MainWindow : SukiWindow
                 if (page.Widgets.TryGetValue(dataPoint.WidgetId, out var widgetTemplate))
                 {
                     // This is horrible wtf
-                    if (widgetTemplate[WidgetTemplate.WidgetProperty] is not WidgetBase widget)
+                    if (widgetTemplate.Widget is not WidgetBase widget)
                         continue;
                     
-                    widget[WidgetBase.ValueProperty] = dataPoint.NewValue;
+                    widget.Value = dataPoint.NewValue;
 
                     // Update header, if requested
                     if (dataPoint.NewHeader is not null)
-                        widget[WidgetBase.HeaderProperty] = dataPoint.NewHeader;
+                        widget.Header = dataPoint.NewHeader;
                 }
             }
         }

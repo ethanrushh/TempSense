@@ -37,16 +37,18 @@ config.ValidateOrThrow();
 Console.WriteLine("DEBUG: Parsed config file");
 
 
-if (config.Widgets is null)
-    throw new Exception("No widgets set in config");
-var widgets = config.Widgets.Select(x => (Widget: new WidgetDefinition
+// Brief validation on pages and widgets
+if (config.Pages is null || config.Pages.Any(x => x.Widgets is null))
+    throw new Exception("Invalid page configuration");
+
+var pages = config.Pages.Select(page => (Page: page, Widgets: page.Widgets!.Select(x => (Widget: new WidgetDefinition
 {
     Id = Guid.NewGuid(),
     Header = x.DisplayType == WidgetDisplayType.Round ? GetWidgetValue(x) + x.Unit : x.Header,
     DisplayType = x.DisplayType ?? throw new Exception("Invalid display type in config"),
     Caption = x.DisplayName ?? "UNKNOWN",
     InitialValue = GetWidgetValue(x)
-}, Definition: x)).ToList();
+}, Definition: x)).ToList())).ToList();
 
 
 var connection = new HubConnectionBuilder()
@@ -68,7 +70,17 @@ connection.On("HelloFromServer", () => Console.WriteLine("Server says hello"));
 // Set up widget page on the server
 connection.On("RequestPageDefinition", async () =>
 {
-    await connection.SendAsync("ReceivePageDefinition", config.PageId, widgets.Select(x => x.Widget), config.WidgetLayout);
+    foreach (var page in pages)
+    {
+        await connection.SendAsync("ReceivePageDefinition", new PageDefinition
+        {
+            PageName = page.Page.PageName ?? throw new Exception("Missing page name"),
+            Widgets = page.Widgets.Select(x => x.Widget).ToList(),
+            Layout = page.Page.WidgetLayout ?? throw new Exception("Missing page layout"),
+            RowDefinitions = page.Page.RowDefinitions ?? throw new Exception("Missing page row definitions"),
+            ColumnDefinitions = page.Page.ColumnDefinitions ?? throw new Exception("Missing page column definitions"),
+        });
+    }
 });
 
 // Connect to server until successful
@@ -91,21 +103,22 @@ var timer = new PeriodicTimer(TimeSpan.FromSeconds(0.5));
 // Main loop
 do
 {
-    var dataPoints = widgets.Select(x => new DataPoint
+    var pageUpdate = pages.Select(page => (page.Page.PageName, DataPoints: page.Widgets.Select(x => new DataPoint
     {
         WidgetId = x.Widget.Id,
         NewValue = GetWidgetValue(x.Definition),
         NewHeader = x.Definition.Type == WidgetType.Sensor
             ? GetWidgetValue(x.Definition) + x.Definition.Unit
             : x.Widget.Header
-    }).ToList();
+    }).ToList())).ToList();
 
-    if (connection.State == HubConnectionState.Connected)
-        await connection.SendAsync("ReceiveDataframe", new Dataframe
-        {
-            PageId = config.PageId ?? throw new Exception("No page ID is set in config"),
-            DataPoints = dataPoints
-        });
+    foreach (var update in pageUpdate)
+        if (connection.State == HubConnectionState.Connected)
+            await connection.SendAsync("ReceiveDataframe", new Dataframe
+            {
+                PageId = update.PageName ?? throw new Exception("No page name is set in config"),
+                DataPoints = update.DataPoints
+            });
 
 } while (await timer.WaitForNextTickAsync());
 

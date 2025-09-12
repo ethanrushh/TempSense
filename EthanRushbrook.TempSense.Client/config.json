@@ -2,82 +2,180 @@
   "server_endpoint": "http://localhost:5058/hub",
   "page_id": "Dev PC",
   
-  "widget_layout": "MinisWithFooter",
-  "widgets": [
+  "pages": [
     {
-      "type": "Sensor",
-      "widget_display_type": "Round",
+      "page_name": "Extern Senors",
       
-      "device_name": "coretemp-isa-0000",
-      "sensor_name": "Core 0",
-      "field_name": "temp2_input",
+      "rows": "2*, 2*, 2*, *",
+      "cols": "*, *",
       
-      "display_name": "CPU Core 0 Temp",
-      "unit": "°C"
-    },
-    {
-      "type": "Sensor",
-      "widget_display_type": "Round",
+      "widget_layout": "MinisWithFooter",
       
-      "device_name": "coretemp-isa-0000",
-      "sensor_name": "Package id 0",
-      "field_name": "temp1_input",
-      
-      "display_name": "CPU Package (°C)",
-      "unit": "°C"
+      "widgets": [
+        {
+          "type": "Sensor",
+          "widget_display_type": "Round",
+
+          "device_name": "coretemp-isa-0000",
+          "sensor_name": "Core 0",
+          "field_name": "temp2_input",
+
+          "display_name": "Page 2 Sensor",
+          "unit": "°C"
+        },
+        {
+          "type": "Sensor",
+          "widget_display_type": "Round",
+
+          "device_name": "coretemp-isa-0000",
+          "sensor_name": "Package id 0",
+          "field_name": "temp1_input",
+
+          "display_name": "CPU Package (°C)",
+          "unit": "°C"
+        },
+        {
+          "type": "Disk",
+          "widget_display_type": "Readout",
+
+          "device_name": "/",
+
+          "display_name": "Free Space (GiB)"
+        },
+        {
+          "type": "Memory",
+          "widget_display_type": "Fluid",
+
+          "memory_sensor_target": "UsedPercentage",
+
+          "display_name": "Memory Usage"
+        },
+        {
+          "type": "Network",
+          "widget_display_type": "Readout",
+          "header": "↑",
+
+          "device_name": "enp4s0",
+          "direction": "Up",
+
+          "display_name": "enp4s0 Upload"
+        },
+        {
+          "type": "Network",
+          "widget_display_type": "Readout",
+          "header": "↓",
+
+          "device_name": "enp4s0",
+          "direction": "Down",
+
+          "display_name": "enp4s0 Download"
+        },
+
+        {
+          "type": "Memory",
+          "widget_display_type": "Readout",
+
+          "memory_sensor_target": "Total",
+
+          "display_name": "Total Memory"
+        },
+        {
+          "type": "Memory",
+          "widget_display_type": "Readout",
+
+          "memory_sensor_target": "Free",
+
+          "display_name": "Available RAM"
+        }
+      ]
     },
+
+
     {
-      "type": "Disk",
-      "widget_display_type": "Readout",
-      
-      "device_name": "/",
-      
-      "display_name": "Free Space (GiB)"
-    },
-    {
-      "type": "Memory",
-      "widget_display_type": "Fluid",
+      "page_name": "Core Senors",
 
-      "memory_sensor_target": "UsedPercentage",
+      "rows": "2*, 2*, 2*, *",
+      "cols": "*, *",
 
-      "display_name": "Memory Usage"
-    },
-    {
-      "type": "Network",
-      "widget_display_type": "Readout",
-      "header": "↑",
+      "widget_layout": "MinisWithFooter",
 
-      "device_name": "enp4s0",
-      "direction": "Up",
+      "widgets": [
+        {
+          "type": "Sensor",
+          "widget_display_type": "Round",
 
-      "display_name": "enp4s0 Upload"
-    },
-    {
-      "type": "Network",
-      "widget_display_type": "Readout",
-      "header": "↓",
+          "device_name": "coretemp-isa-0000",
+          "sensor_name": "Core 0",
+          "field_name": "temp2_input",
 
-      "device_name": "enp4s0",
-      "direction": "Down",
+          "display_name": "CPU Core 0 Temp",
+          "unit": "°C"
+        },
+        {
+          "type": "Sensor",
+          "widget_display_type": "Round",
 
-      "display_name": "enp4s0 Download"
-    },
-    
-    {
-      "type": "Memory",
-      "widget_display_type": "Readout",
+          "device_name": "coretemp-isa-0000",
+          "sensor_name": "Package id 0",
+          "field_name": "temp1_input",
 
-      "memory_sensor_target": "Total",
+          "display_name": "CPU Package (°C)",
+          "unit": "°C"
+        },
+        {
+          "type": "Disk",
+          "widget_display_type": "Readout",
 
-      "display_name": "Total Memory"
-    },
-    {
-      "type": "Memory",
-      "widget_display_type": "Readout",
+          "device_name": "/",
 
-      "memory_sensor_target": "Free",
+          "display_name": "Free Space (GiB)"
+        },
+        {
+          "type": "Memory",
+          "widget_display_type": "Fluid",
 
-      "display_name": "Available RAM"
+          "memory_sensor_target": "UsedPercentage",
+
+          "display_name": "Memory Usage"
+        },
+        {
+          "type": "Network",
+          "widget_display_type": "Readout",
+          "header": "↑",
+
+          "device_name": "enp4s0",
+          "direction": "Up",
+
+          "display_name": "enp4s0 Upload"
+        },
+        {
+          "type": "Network",
+          "widget_display_type": "Readout",
+          "header": "↓",
+
+          "device_name": "enp4s0",
+          "direction": "Down",
+
+          "display_name": "enp4s0 Download"
+        },
+
+        {
+          "type": "Memory",
+          "widget_display_type": "Readout",
+
+          "memory_sensor_target": "Total",
+
+          "display_name": "Total Memory"
+        },
+        {
+          "type": "Memory",
+          "widget_display_type": "Readout",
+
+          "memory_sensor_target": "Free",
+
+          "display_name": "Available RAM"
+        }
+      ]
     }
   ]
 }

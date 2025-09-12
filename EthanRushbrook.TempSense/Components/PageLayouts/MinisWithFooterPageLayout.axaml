@@ -3,8 +3,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="EthanRushbrook.TempSense.Components.PageLayouts.MinisWithFooterPageLayout">
-    <Grid ColumnDefinitions="*, *" RowDefinitions="3*, 3*, 3*, 2*" Name="LayoutGrid" RowSpacing="10" ColumnSpacing="10" Margin="10">
+             x:Class="EthanRushbrook.TempSense.Components.PageLayouts.MinisWithFooterPageLayout"
+             xmlns:layouts="clr-namespace:EthanRushbrook.TempSense.Components.PageLayouts"
+             x:DataType="layouts:PageLayout">
+    <Grid Name="LayoutGrid" RowSpacing="10" ColumnSpacing="10" Margin="10">
         <!-- Content goes here -->
     </Grid>
 </UserControl>

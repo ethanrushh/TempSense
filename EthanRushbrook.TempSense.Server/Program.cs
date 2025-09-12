@@ -1,6 +1,3 @@
-using Avalonia;
-using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Threading;
 using EthanRushbrook.TempSense.Server.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);

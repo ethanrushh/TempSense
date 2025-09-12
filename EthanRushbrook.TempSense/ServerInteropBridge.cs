@@ -15,11 +15,11 @@ public class ServerInteropBridge
         _window = window;
     }
 
-    public void InitializePage(string pageId, List<WidgetDefinition> widgets, WidgetLayout layout)
+    public void InitializePage(PageDefinition pageDefinition)
     {
         Dispatcher.UIThread.Invoke(() =>
         {
-            _window.InitializePage(pageId, widgets, layout);
+            _window.InitializePage(pageDefinition);
         });
     }
 

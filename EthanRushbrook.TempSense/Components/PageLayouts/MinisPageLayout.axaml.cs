@@ -1,3 +1,5 @@
+using System;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using System.Collections.Specialized;
@@ -13,6 +15,19 @@ public partial class MinisPageLayout : PageLayout
         // Ensure list is never null
         Widgets = [];
         Widgets.CollectionChanged += OnWidgetsChanged;
+        
+        this.GetObservable(ColumnsProperty).Subscribe(cols =>
+        {
+            LayoutGrid.ColumnDefinitions.Clear();
+            foreach (var col in cols)
+                LayoutGrid.ColumnDefinitions.Add(col);
+        });
+        this.GetObservable(RowsProperty).Subscribe(rows =>
+        {
+            LayoutGrid.RowDefinitions.Clear();
+            foreach (var row in rows)
+                LayoutGrid.RowDefinitions.Add(row);
+        });
     }
 
     private void OnWidgetsChanged(object? sender, NotifyCollectionChangedEventArgs e)
