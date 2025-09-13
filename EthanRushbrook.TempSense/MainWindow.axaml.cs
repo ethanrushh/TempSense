@@ -1,16 +1,15 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Avalonia.Collections;
+using SukiUI.Controls;
 using Avalonia.Controls;
-using Avalonia.Controls.Primitives;
+using Avalonia.Collections;
 using Avalonia.Interactivity;
-using EthanRushbrook.TempSense.Components.PageLayouts;
-using EthanRushbrook.TempSense.Components.Widgets;
+using System.Collections.Generic;
 using EthanRushbrook.TempSense.Contracts;
 using EthanRushbrook.TempSense.SystemInterop;
-using SukiUI.Controls;
+using EthanRushbrook.TempSense.Components.Widgets;
+using EthanRushbrook.TempSense.Components.PageLayouts;
 
 namespace EthanRushbrook.TempSense;
 
