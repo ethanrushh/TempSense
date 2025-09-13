@@ -5,8 +5,6 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="480"
         x:Class="EthanRushbrook.TempSense.MainWindow"
         xmlns:sukiUi="clr-namespace:SukiUI.Controls;assembly=SukiUI"
-        xmlns:pageLayouts="clr-namespace:EthanRushbrook.TempSense.Components.PageLayouts"
-        xmlns:widgets="clr-namespace:EthanRushbrook.TempSense.Components.Widgets"
         Title="EthanRushbrook.TempSense"
         SystemDecorations="None"
         IsMenuVisible="False"
@@ -16,54 +14,6 @@
         CornerRadius="0">
     
     <TabControl TabStripPlacement="Bottom" Name="TabControl">
-        <!-- <TabItem Header="Main PC"> -->
-        <!--     <pageLayouts:MinisPageLayout> -->
-        <!--         <pageLayouts:MinisPageLayout.Widgets> -->
-        <!--             <widgets:WidgetTemplate> -->
-        <!--                 <widgets:WidgetTemplate.Widget> -->
-        <!--                     <widgets:CircleWidget Text="60°C" Value="60" Caption="CPU Package" /> -->
-        <!--                 </widgets:WidgetTemplate.Widget> -->
-        <!--             </widgets:WidgetTemplate> -->
-        <!--              -->
-        <!--             <widgets:WidgetTemplate> -->
-        <!--                 <widgets:WidgetTemplate.Widget> -->
-        <!--                     <widgets:CircleWidget Color="Red" Value="63" Text="63°C" Caption="RTX 4090 Temp" /> -->
-        <!--                 </widgets:WidgetTemplate.Widget> -->
-        <!--             </widgets:WidgetTemplate> -->
-        <!-- -->
-        <!--             <widgets:WidgetTemplate> -->
-        <!--                 <widgets:WidgetTemplate.Widget> -->
-        <!--                     <widgets:ReadoutWidget Value="241.4GB" Caption="Free Space" /> -->
-        <!--                 </widgets:WidgetTemplate.Widget> -->
-        <!--             </widgets:WidgetTemplate> -->
-        <!-- -->
-        <!--             <widgets:WidgetTemplate> -->
-        <!--                 <widgets:WidgetTemplate.Widget> -->
-        <!--                     <widgets:FluidWidget Value="33" Caption="Memory Usage" /> -->
-        <!--                 </widgets:WidgetTemplate.Widget> -->
-        <!--             </widgets:WidgetTemplate> -->
-        <!-- -->
-        <!--             <widgets:WidgetTemplate> -->
-        <!--                 <widgets:WidgetTemplate.Widget> -->
-        <!--                     <widgets:ReadoutWidget Value="320kbps" Caption="ens0 Upload" Title="↑" /> -->
-        <!--                 </widgets:WidgetTemplate.Widget> -->
-        <!--             </widgets:WidgetTemplate> -->
-        <!-- -->
-        <!--             <widgets:WidgetTemplate> -->
-        <!--                 <widgets:WidgetTemplate.Widget> -->
-        <!--                     <widgets:ReadoutWidget Value="10.2mbps" Caption="ens0 Download" Title="↓" /> -->
-        <!--                 </widgets:WidgetTemplate.Widget> -->
-        <!--             </widgets:WidgetTemplate> -->
-        <!--         </pageLayouts:MinisPageLayout.Widgets> -->
-        <!--     </pageLayouts:MinisPageLayout> -->
-        <!-- </TabItem> -->
-        <!-- <TabItem Header="Sun X5-2"> -->
-        <!--      -->
-        <!-- </TabItem> -->
-        <!-- <TabItem Header="Pi 5 B"> -->
-        <!--      -->
-        <!-- </TabItem> -->
-        
         <TabItem Header="No IP detected" IsEnabled="False" Name="LocalIpHeader" />
     </TabControl>
     
