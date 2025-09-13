@@ -19,12 +19,20 @@ public partial class GridPageLayout : PageLayout
         this.GetObservable(ColumnsProperty).Subscribe(cols =>
         {
             LayoutGrid.ColumnDefinitions.Clear();
+
+            if (cols is null)
+                return;
+            
             foreach (var col in cols)
                 LayoutGrid.ColumnDefinitions.Add(col);
         });
         this.GetObservable(RowsProperty).Subscribe(rows =>
         {
             LayoutGrid.RowDefinitions.Clear();
+
+            if (rows is null)
+                return;
+            
             foreach (var row in rows)
                 LayoutGrid.RowDefinitions.Add(row);
         });
