@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:layouts="clr-namespace:EthanRushbrook.TempSense.Components.PageLayouts"
-             x:Class="EthanRushbrook.TempSense.Components.PageLayouts.MinisPageLayout"
+             x:Class="EthanRushbrook.TempSense.Components.PageLayouts.GridPageLayout"
              x:DataType="layouts:PageLayout">
     <Grid Name="LayoutGrid" RowSpacing="10" ColumnSpacing="10" Margin="10">
         <!-- Content goes here -->

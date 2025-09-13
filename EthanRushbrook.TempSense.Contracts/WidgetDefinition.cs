@@ -24,5 +24,5 @@ public enum WidgetDisplayType
 [JsonConverter(typeof(JsonStringEnumConverter))]
 public enum WidgetLayout
 {
-    Minis, MinisWithFooter
+    Grid
 }

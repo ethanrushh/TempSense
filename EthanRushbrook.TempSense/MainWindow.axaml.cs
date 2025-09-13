@@ -46,8 +46,7 @@ public partial class MainWindow : SukiWindow
         // Build page, attach widgets
         PageLayout pageLayout = pageDefinition.Layout switch
         {
-            WidgetLayout.Minis => new MinisPageLayout(),
-            WidgetLayout.MinisWithFooter => new MinisWithFooterPageLayout(),
+            WidgetLayout.Grid => new GridPageLayout(),
             _ => throw new ArgumentException("Layout is not supported or valid", nameof(pageDefinition))
         };
         pageLayout.Widgets = new AvaloniaList<(Guid, Control)>(widgetControls.Select(x => (x.Id, x.WidgetControl as Control)));
@@ -124,6 +123,7 @@ public partial class MainWindow : SukiWindow
     {
         var localIp = LocalNetworkInterop.GetLocalIPv4();
         
-        LocalIpHeader.Header = localIp ?? "No IPv4 detected";
+        //LocalIpHeader.Header = localIp ?? "No IPv4 detected";
+        LocalIpHeader.Header = "127.0.0.1";
     }
 }
