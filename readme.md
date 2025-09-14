@@ -2,11 +2,11 @@
 
 # TempSense - Local, free, open source monitoring for all your devices
 
-![Horizontal Sample](sample-horizontal.png)
-
-
 ### Important Disclaimer:
 > Warning: TempSense is a work in progress. Much is due to change in breaking ways.
+
+
+![Horizontal Sample](sample-horizontal.png)
 
 
 ## What is TempSense?
