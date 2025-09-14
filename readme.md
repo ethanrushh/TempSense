@@ -1,4 +1,4 @@
-![TempSense Banner](banner.png)
+[![TempSense Banner](banner.png)]("https://tempsense-site.vercel.app/")
 
 # TempSense - Local, free, open source monitoring for all your devices
 
