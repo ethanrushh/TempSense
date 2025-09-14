@@ -25,6 +25,8 @@ public partial class GridPageLayout : PageLayout
             
             foreach (var col in cols)
                 LayoutGrid.ColumnDefinitions.Add(col);
+
+            OnWidgetsChanged(this, null!);
         });
         this.GetObservable(RowsProperty).Subscribe(rows =>
         {
@@ -35,6 +37,8 @@ public partial class GridPageLayout : PageLayout
             
             foreach (var row in rows)
                 LayoutGrid.RowDefinitions.Add(row);
+
+            OnWidgetsChanged(this, null!);
         });
     }
 
@@ -45,13 +49,22 @@ public partial class GridPageLayout : PageLayout
 
         LayoutGrid.Children.Clear();
 
+        var columns = LayoutGrid.ColumnDefinitions.Count;
+        var rows = LayoutGrid.RowDefinitions.Count;
+
+        // Avoid a div by zero error
+        if (columns == 0 || rows == 0)
+            return;
+
         for (var i = 0; i < Widgets.Count; i++)
         {
             var child = Widgets[i].Control;
 
-            // 2 columns, 3 rows
-            var row = i / 2;    // 0,0,1,1,2,2
-            var col = i % 2;    // 0,1,0,1,0,1
+            var row = i / columns;
+            var col = i % columns;
+
+            if (row >= rows)
+                break;
 
             Grid.SetRow(child, row);
             Grid.SetColumn(child, col);
@@ -67,19 +80,6 @@ public partial class GridPageLayout : PageLayout
         if (LayoutGrid == null) 
             return;
 
-        LayoutGrid.Children.Clear();
-
-        for (var i = 0; i < Widgets.Count; i++)
-        {
-            var child = Widgets[i].Control;
-
-            var row = i / 2;
-            var col = i % 2;
-
-            Grid.SetRow(child, row);
-            Grid.SetColumn(child, col);
-
-            LayoutGrid.Children.Add(child);
-        }
+        OnWidgetsChanged(this, null!);
     }
 }
