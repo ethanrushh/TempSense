@@ -2,6 +2,8 @@
 
 # TempSense - Local, free, open source monitoring for all your devices
 
+![Horizontal Sample](sample-horizontal.png)
+
 ## What is TempSense?
 
 TempSense is an application that allows you to stream various sensor data to a single device, ideally one with a touch display, for viewing. An example use-case: Gaming PC + Streaming PC + 2x Homelab Proxmox Instances -> Raspberry Pi 5B with Touch Display. 
