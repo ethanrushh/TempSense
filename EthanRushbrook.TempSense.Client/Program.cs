@@ -6,6 +6,10 @@ using EthanRushbrook.TempSense.Contracts;
 using Microsoft.AspNetCore.SignalR.Client;
 
 
+Console.WriteLine(" _____                   ____                      \n|_   _|__ _ __ ___  _ __/ ___|  ___ _ __  ___  ___ \n  | |/ _ \\ '_ ` _ \\| '_ \\___ \\ / _ \\ '_ \\/ __|/ _ \\\n  | |  __/ | | | | | |_) |__) |  __/ | | \\__ \\  __/\n  |_|\\___|_| |_| |_| .__/____/ \\___|_| |_|___/\\___|\n                   |_|                             ");
+
+Console.WriteLine("Use at your own risk. I am not responsible for poor choices.");
+Console.WriteLine("Do not expose TempSense over the internet. (don't port map it)");
 
 // Detects the platform we're on, gets the sensor engine for that platform. Very cool :)
 using var sensors = SystemSensors.GetAutoSensors(PlatformDetection.DetectOsPlatform());
