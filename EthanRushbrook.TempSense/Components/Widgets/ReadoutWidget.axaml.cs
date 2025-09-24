@@ -14,7 +14,7 @@ public partial class ReadoutWidget : WidgetBase
         set => SetValue(CaptionProperty, value);
     }
 
-    public ReadoutWidget()
+    public ReadoutWidget(Guid widgetId) : base(widgetId)
     {
         InitializeComponent();
         

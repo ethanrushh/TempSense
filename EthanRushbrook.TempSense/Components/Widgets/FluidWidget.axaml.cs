@@ -1,5 +1,5 @@
+using System;
 using Avalonia;
-using Avalonia.Controls;
 
 namespace EthanRushbrook.TempSense.Components.Widgets;
 
@@ -13,7 +13,7 @@ public partial class FluidWidget : WidgetBase
         set => SetValue(CaptionProperty, value);
     }
     
-    public FluidWidget()
+    public FluidWidget(Guid widgetId) : base(widgetId)
     {
         InitializeComponent();
     }

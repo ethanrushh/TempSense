@@ -4,8 +4,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EthanRushbrook.TempSense", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EthanRushbrook.TempSense.SystemInterop", "EthanRushbrook.TempSense.SystemInterop\EthanRushbrook.TempSense.SystemInterop.csproj", "{82D7A7CC-DAAF-476B-BAF5-1831F007CF43}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EthanRushbrook.TempSense.Server", "EthanRushbrook.TempSense.Server\EthanRushbrook.TempSense.Server.csproj", "{3CA5B2C6-E080-4AAA-A864-91128A863F90}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EthanRushbrook.TempSense.Client", "EthanRushbrook.TempSense.Client\EthanRushbrook.TempSense.Client.csproj", "{D4C09F5D-4E67-4AEC-BA38-FF63DD43C807}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EthanRushbrook.TempSense.Contracts", "EthanRushbrook.TempSense.Contracts\EthanRushbrook.TempSense.Contracts.csproj", "{4EE0CF36-4306-4C01-93E6-5396450C0A31}"
@@ -24,10 +22,6 @@ Global
 		{82D7A7CC-DAAF-476B-BAF5-1831F007CF43}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{82D7A7CC-DAAF-476B-BAF5-1831F007CF43}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{82D7A7CC-DAAF-476B-BAF5-1831F007CF43}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3CA5B2C6-E080-4AAA-A864-91128A863F90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3CA5B2C6-E080-4AAA-A864-91128A863F90}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3CA5B2C6-E080-4AAA-A864-91128A863F90}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3CA5B2C6-E080-4AAA-A864-91128A863F90}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D4C09F5D-4E67-4AEC-BA38-FF63DD43C807}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D4C09F5D-4E67-4AEC-BA38-FF63DD43C807}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4C09F5D-4E67-4AEC-BA38-FF63DD43C807}.Release|Any CPU.ActiveCfg = Release|Any CPU

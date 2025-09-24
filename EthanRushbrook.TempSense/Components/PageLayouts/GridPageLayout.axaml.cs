@@ -8,7 +8,7 @@ namespace EthanRushbrook.TempSense.Components.PageLayouts;
 
 public partial class GridPageLayout : PageLayout
 {
-    public GridPageLayout()
+    public GridPageLayout(string pageId) : base(pageId)
     {
         InitializeComponent();
 

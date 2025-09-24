@@ -1,9 +1,5 @@
-using System.Linq;
+using System;
 using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Media;
-using Avalonia.Reactive;
-using SukiUI;
 using SukiUI.Enums;
 
 namespace EthanRushbrook.TempSense.Components.Widgets;
@@ -26,7 +22,7 @@ public partial class CircleWidget : WidgetBase
         set => SetValue(ColorProperty, value);
     }
     
-    public CircleWidget()
+    public CircleWidget(Guid widgetId) : base(widgetId)
     {
         InitializeComponent();
     }

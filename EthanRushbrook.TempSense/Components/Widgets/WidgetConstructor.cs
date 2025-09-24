@@ -8,20 +8,22 @@ public static class WidgetConstructor
 {
     public static WidgetTemplate ConstructWidget(WidgetDefinition definition)
     {
+        var template = new WidgetTemplate();
+        
         Control widget = definition.DisplayType switch
         {
-            WidgetDisplayType.Fluid => new FluidWidget
+            WidgetDisplayType.Fluid => new FluidWidget(definition.Id)
             {
                 Caption = definition.Caption,
                 Value = double.Parse(definition.InitialValue)
             },
-            WidgetDisplayType.Readout => new ReadoutWidget
+            WidgetDisplayType.Readout => new ReadoutWidget(definition.Id)
             {
                 Caption = definition.Caption,
                 Value = definition.InitialValue,
                 Header = definition.Header
             },
-            WidgetDisplayType.Round => new CircleWidget
+            WidgetDisplayType.Round => new CircleWidget(definition.Id)
             {
                 Caption = definition.Caption,
                 Value = double.Parse(definition.InitialValue),
@@ -30,9 +32,8 @@ public static class WidgetConstructor
             _ => throw new Exception("Unsupported widget type")
         };
 
-        return new WidgetTemplate
-        {
-            Widget = widget
-        };
+        template.Widget = widget;
+
+        return template;
     }
 }

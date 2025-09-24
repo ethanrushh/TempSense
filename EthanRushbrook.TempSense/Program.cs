@@ -1,21 +1,40 @@
-﻿using Avalonia;
 using System;
+using Avalonia;
+using System.Threading.Tasks;
+using EthanRushbrook.TempSense;
+using Microsoft.AspNetCore.Builder;
+using EthanRushbrook.TempSense.Hubs;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace EthanRushbrook.TempSense;
+var builder = WebApplication.CreateBuilder(args);
 
-public class Program
+builder.Services.AddControllers();
+
+builder.Services.AddSignalR();
+
+var app = builder.Build();
+
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
+app.MapControllers();
+
+app.MapHub<ClientHub>("/hub");
+
+var webTask = Task.Run(() => app.Run());
+var avaloniaTask = Task.Run(() =>
 {
-    // Initialization code. Don't use any Avalonia, third-party APIs or any
-    // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
-    // yet and stuff might break.
-    [STAThread]
-    public static void Main(string[] args) => BuildAvaloniaApp()
+    TempSenseApp.ServiceProvider = app.Services;
+    
+    AppBuilder.Configure<TempSenseApp>()
+        .UsePlatformDetect()
+        .WithInterFont()
+        .LogToTrace()
         .StartWithClassicDesktopLifetime(args);
+});
 
-    // Avalonia configuration, don't remove; also used by visual designer.
-    public static AppBuilder BuildAvaloniaApp()
-        => AppBuilder.Configure<App>()
-            .UsePlatformDetect()
-            .WithInterFont()
-            .LogToTrace();
-}
+// Wait until both have exited
+await Task.WhenAny(webTask, avaloniaTask);
+
+Environment.Exit(0);

@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Diagnostics;
+using System.Text.Json;
 using EthanRushbrook.TempSense.Client;
 using EthanRushbrook.TempSense.Client.Sensors;
 using EthanRushbrook.TempSense.Contracts;
@@ -50,22 +51,20 @@ var pages = config.Pages.Select(page => (Page: page, Widgets: page.Widgets!.Sele
     InitialValue = GetWidgetValue(x)
 }, Definition: x)).ToList())).ToList();
 
+if (pages.Any(x => x.Widgets.Any(w => w.Definition.Action is not null)))
+{
+    Console.WriteLine(Environment.NewLine + Environment.NewLine + "=============================================");
+    Console.WriteLine("=========== YOU ARE USING ACTIONS ===========");
+    Console.WriteLine("Actions execute your set code over the network. Use common sense.");
+    Console.WriteLine("You are responsible for your network security.");
+    Console.WriteLine("=============================================");
+    Console.WriteLine("=============================================" + Environment.NewLine + Environment.NewLine);
+}
+
 
 var connection = new HubConnectionBuilder()
     .WithUrl(config.ServerEndpoint ?? throw new Exception("No server endpoint set in config"))
     .Build();
-
-// Restart connection if closed
-// connection.Closed += async _ =>
-// {
-//     Task.Run(async () =>
-//     {
-//         await Task.Delay(1000);
-//         await connection.StartAsync();
-//     });
-// };
-
-connection.On("HelloFromServer", () => Console.WriteLine("Server says hello"));
 
 // Set up widget page on the server
 connection.On("RequestPageDefinition", async () =>
@@ -81,6 +80,24 @@ connection.On("RequestPageDefinition", async () =>
             ColumnDefinitions = page.Page.ColumnDefinitions ?? throw new Exception("Missing page column definitions"),
         });
     }
+});
+
+// Actions
+connection.On("PerformAction", (string pageId, Guid widgetId) =>
+{
+    var widget = pages
+        .Find(x => x.Page.PageName == pageId)
+        .Widgets
+        .Find(x => x.Widget.Id == widgetId);
+
+    // Create the process and immediately dispose of it so the OS has control
+    Process.Start(new ProcessStartInfo
+    {
+        FileName = widget.Definition.Action,
+        Arguments = widget.Definition.ActionArgs ?? "",
+        CreateNoWindow = true,
+        UseShellExecute = false
+    })?.Dispose();
 });
 
 // Connect to server until successful

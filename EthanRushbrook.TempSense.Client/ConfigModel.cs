@@ -79,6 +79,12 @@ public class ConfigWidgetDefinition
     
     [JsonPropertyName("network_adapter")]
     public string? NetworkAdapterName { get; set; }
+    
+    [JsonPropertyName("action")]
+    public string? Action { get; set; }
+    
+    [JsonPropertyName("action_args")]
+    public string? ActionArgs { get; set; }
 }
 
 [JsonConverter(typeof(JsonStringEnumConverter))]

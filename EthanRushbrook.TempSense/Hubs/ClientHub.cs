@@ -1,13 +1,18 @@
+using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using EthanRushbrook.TempSense.Contracts;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.Logging;
 
-namespace EthanRushbrook.TempSense.Server.Hubs;
+namespace EthanRushbrook.TempSense.Hubs;
 
 public class ClientHub(ILogger<ClientHub> logger) : Hub
 {
     // (ConnectionID => PageIDs)
-    private static readonly ConcurrentDictionary<string, List<string>> ClientIdToPageId = new();
+    public static readonly ConcurrentDictionary<string, List<string>> ClientIdToPageId = new();
     
     public override async Task OnConnectedAsync()
     {
@@ -23,7 +28,6 @@ public class ClientHub(ILogger<ClientHub> logger) : Hub
 
         ClientIdToPageId[Context.ConnectionId] = [];
 
-        await Clients.Caller.SendAsync("HelloFromServer");
         await Clients.Caller.SendAsync("RequestPageDefinition");
     }
 

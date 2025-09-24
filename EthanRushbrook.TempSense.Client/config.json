@@ -21,7 +21,9 @@
           "field_name": "temp2_input",
 
           "display_name": "Page 2 Sensor",
-          "unit": "°C"
+          "unit": "°C",
+          "action": "/bin/bash",
+          "action_args": "/home/ethan/Documents/open-firefox.sh"
         },
         {
           "type": "Sensor",

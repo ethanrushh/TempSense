@@ -46,7 +46,7 @@ public partial class MainWindow : SukiWindow
         // Build page, attach widgets
         PageLayout pageLayout = pageDefinition.Layout switch
         {
-            WidgetLayout.Grid => new GridPageLayout(),
+            WidgetLayout.Grid => new GridPageLayout(pageDefinition.PageName),
             _ => throw new ArgumentException("Layout is not supported or valid", nameof(pageDefinition))
         };
         pageLayout.Widgets = new AvaloniaList<(Guid, Control)>(widgetControls.Select(x => (x.Id, x.WidgetControl as Control)));
