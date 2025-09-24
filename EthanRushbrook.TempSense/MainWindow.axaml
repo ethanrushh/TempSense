@@ -9,7 +9,8 @@
         SystemDecorations="None"
         IsMenuVisible="False"
         IsTitleBarVisible="False"
-        CornerRadius="0">
+        CornerRadius="0"
+        WindowState="FullScreen">
     
     <TabControl TabStripPlacement="Bottom" Name="TabControl">
         <TabItem Header="No IP detected" IsEnabled="False" Name="LocalIpHeader" />

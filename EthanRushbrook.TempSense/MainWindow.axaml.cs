@@ -116,7 +116,10 @@ public partial class MainWindow : SukiWindow
             WindowState = WindowState.FullScreen;
         }
         else
+        {
             Console.WriteLine("Pi 5 not detected, starting in dev mode");
+            WindowState = WindowState.Normal;
+        }
     }
 
     private void DetectLocalIp()
