@@ -35,8 +35,6 @@ if (config is null)
 
 config.ValidateOrThrow();
 
-Console.WriteLine("DEBUG: Parsed config file");
-
 
 // Brief validation on pages and widgets
 if (config.Pages is null || config.Pages.Any(x => x.Widgets is null))
