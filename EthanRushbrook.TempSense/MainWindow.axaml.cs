@@ -114,6 +114,8 @@ public partial class MainWindow : SukiWindow
             Console.WriteLine("CPU is a BCM2712: Setting to fullscreen (Pi 5 detected)");
             
             WindowState = WindowState.FullScreen;
+            Width = 800;
+            Height = 480;
         }
         else
         {
