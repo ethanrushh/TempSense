@@ -48,8 +48,8 @@ var pages = config.Pages.Select(page => (Page: page, Widgets: page.Widgets!.Sele
 {
     Id = Guid.NewGuid(),
     Header = x.DisplayType == WidgetDisplayType.Round ? GetWidgetValue(x) + x.Unit : x.Header,
-    DisplayType = x.DisplayType ?? throw new Exception("Invalid display type in config"),
-    Caption = x.DisplayName ?? "UNKNOWN",
+    DisplayType = x.DisplayType ?? WidgetDisplayType.Readout,
+    Caption = x.DisplayName ?? "Action",
     InitialValue = GetWidgetValue(x)
 }, Definition: x)).ToList())).ToList();
 
@@ -148,6 +148,9 @@ string GetWidgetValue(ConfigWidgetDefinition widget)
 {
     switch (widget.Type)
     {
+        case WidgetType.Text:
+            return widget.TextValue ?? "";
+        
         case WidgetType.Network:
             var networkStats = sensors.GetNetworkStats(widget.DeviceName ??
                                                        throw new Exception("Device name missing for widget " +

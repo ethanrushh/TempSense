@@ -21,20 +21,14 @@
           "field_name": "temp2_input",
 
           "display_name": "Page 2 Sensor",
-          "unit": "°C",
-          "action": "/bin/bash",
-          "action_args": "/home/ethan/Documents/open-firefox.sh"
+          "unit": "°C"
         },
         {
-          "type": "Sensor",
-          "widget_display_type": "Round",
-
-          "device_name": "coretemp-isa-0000",
-          "sensor_name": "Package id 0",
-          "field_name": "temp1_input",
-
-          "display_name": "CPU Package (°C)",
-          "unit": "°C"
+          "type": "Text",
+          "text_value": "Firefox",
+          
+          "action": "hyprctl",
+          "action_args": "dispatch exec firefox"
         },
         {
           "type": "Disk",

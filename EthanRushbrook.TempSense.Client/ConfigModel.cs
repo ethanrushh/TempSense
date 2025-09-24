@@ -44,7 +44,6 @@ public class ConfigPageDefinition
 
 public class ConfigWidgetDefinition
 {
-    [JsonRequired]
     [JsonPropertyName("display_name")]
     public string? DisplayName { get; set; }
     
@@ -52,7 +51,6 @@ public class ConfigWidgetDefinition
     [JsonPropertyName("type")]
     public WidgetType? Type { get; set; }
     
-    [JsonRequired]
     [JsonPropertyName("widget_display_type")]
     public WidgetDisplayType? DisplayType { get; set; }
     
@@ -85,12 +83,15 @@ public class ConfigWidgetDefinition
     
     [JsonPropertyName("action_args")]
     public string? ActionArgs { get; set; }
+    
+    [JsonPropertyName("text_value")]
+    public string? TextValue { get; set; }
 }
 
 [JsonConverter(typeof(JsonStringEnumConverter))]
 public enum WidgetType
 {
-    Sensor, Memory, Network, Disk
+    Sensor, Memory, Network, Disk, Text
 }
 [JsonConverter(typeof(JsonStringEnumConverter))]
 public enum NetworkDirection
@@ -101,11 +102,6 @@ public enum NetworkDirection
 public enum MemorySensorTarget
 {
     Free, Total, UsedPercentage
-}
-[JsonConverter(typeof(JsonStringEnumConverter))]
-public enum DiskSensorTarget
-{
-    Free, Total, Used
 }
 
 public static class ConfigModelExtensions
